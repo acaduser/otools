@@ -1,0 +1,9 @@
+(vl-load-com)
+(setq *start* (getvar "date"))
+
+(load "otools.lsp" nil)
+;;(load "settings.lsp" nil)
+
+(princ (strcat "\n" (findfile "acaddoc.lsp") ""))
+(princ (strcat " " (rtos (* 60 60 24 (- (getvar "date") *start*)) 2 2) "s"))
+(princ)
