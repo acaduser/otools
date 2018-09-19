@@ -5,14 +5,14 @@
   )
   (defun main ()
     (vl-load-com)
-    (princ "\nƒIƒuƒWƒFƒNƒg‰æ‘w•ÏX")
+    (princ "\nã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆç”»å±¤å¤‰æ›´")
     (setq oApp (vlax-get-acad-object))
     (setq oDoc (vla-get-ActiveDocument oApp))
     (vla-StartUndoMark oDoc)
     (if (setq ss (ssget "_:L"))
       (progn
         (initget " ")
-        (setq res(entsel "\nQl‚É‚·‚éƒIƒuƒWƒFƒNƒg‘I‘ğ<ƒ_ƒCƒAƒƒO>:"))
+        (setq res(entsel "\nå‚è€ƒã«ã™ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆé¸æŠ<ãƒ€ã‚¤ã‚¢ãƒ­ã‚°>:"))
         (cond
           ((= res "")
             (setq res (layerDlg "0" t))
@@ -116,7 +116,7 @@
 		(if (not(tblobjname "LAYER" lname))
 			(progn	
 				(command "_layer" "n" lname "")
-				(princ (strcat "\n" lname " ‚Íì¬‚³‚ê‚Ü‚µ‚½B"))
+				(princ (strcat "\n" lname " ã¯ä½œæˆã•ã‚Œã¾ã—ãŸã€‚"))
 			)
 		)
     (setq cmdecho (getvar "cmdecho"))
