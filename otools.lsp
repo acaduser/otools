@@ -25,4 +25,8 @@
 (utf8demandload "laystdctr.lsp" '(c:layPickNestOn))
 (utf8demandload "laystdctr.lsp" '(c:layPickNestOff))
 
+(utf8demandload "angBlock.lsp" '(c:angBlock))
+(utf8demandload "angHatch.lsp" '(c:angHatch))
+(utf8demandload "angText.lsp" '(c:angText))
 
+(utf8demandload "hatchMove.lsp" '(c:hatchMove))

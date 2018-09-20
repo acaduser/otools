@@ -25,6 +25,9 @@
 (vl-catch-all-apply 'setvar '("layernotify" 0))
 (vl-catch-all-apply 'setvar '("selectioncycling" 0))
 
+(vl-catch-all-apply 'setvar '("osoptions" 0))
+(vl-catch-all-apply 'setvar '("dynmode" 1))
+
 ;;システム変数　図面
 (setvar "dimassoc" 1)
 (setvar "filletrad" 0)
@@ -35,7 +38,7 @@
 (setvar "celweight" -1)
 (setvar "ucsicon" 1)
 (vl-catch-all-apply 'setvar '("clayer" "0"))
-
+(setvar "snapmode" 0)
 
 ;;短縮コマンド
 
@@ -47,6 +50,19 @@
 (defun c:et () (command "_extend"))
 (defun c:t () (command "_trim"))
 
+(defun c:n () (command "_matchprop"))
+(defun c:nn () (command "_matchprop"))
+
+(defun c:o () (command "_offset" "l" "s" "e" "n"))
+(defun c:oo () (command "_offset" "l" "c" "e" "n"))
+(defun c:ooo () (command "_offset" "l" "s" "e" "y"))
+
+(defun c:anb () (c:angBlock))
+(defun c:anh () (c:angHatch))
+(defun c:ant () (c:angText))
+
+(defun c:hm () (c:hatchMove))
+
 (defun c:ed () (c:extEditor))
 (defun c:xt () (c:exchangeText))
 (defun c:g () (c:grip))
@@ -55,12 +71,15 @@
 (defun c:fa () (c:layAllOff))
 (defun c:rss () (c:laySSOn))
 (defun c:fss () (c:laySSOff))
+(defun c:rs () (c:layPickNestOn))
 (defun c:rn () (c:layPickNestOn))
+(defun c:fs () (c:layPickNestOff))
 (defun c:fn () (c:layPickNestOff))
 
 (defun c:rev () (c:layRev))
 
 (defun c:ext () (c:exchangetext))
+(defun c:cc () (c:stackCopy))
 (defun c:ccc () (c:stackCopy))
 
 (defun c:ppn () (c:pviewportPan))
