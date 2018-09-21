@@ -21,6 +21,17 @@
 		(setq tmp (reverse tmp))
 		(setq tmp (apply 'strcat tmp))
 		(setq lst (vl-string->list tmp))
+		(if
+			(and
+				(= (car lst) 239)
+				(= (cadr lst) 187)
+				(= (caddr lst) 191)
+			)
+			(progn
+				(princ "\nBOM skip")
+				(setq lst (cdddr lst))
+			)
+		)
 		(while (and isUtf8 lst)
 			(cond
 				;1byte
