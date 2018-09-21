@@ -1,4 +1,4 @@
-(defun c:angHatch
+﻿(defun c:angHatch
 	(/
 		*error* main
 		doc obj pt1 pt2 ename i angw ucsChanged
@@ -21,10 +21,23 @@
 				(setq ucsChanged t)
 				(repeat (sslength ss)
 					(setq obj (vlax-ename->vla-object (setq ename (ssname ss i))))
-					(command "_hatchedit"  ename)
-					(while (= (getvar "cmdactive") 1) (command ""))
-					(vla-put-PatternAngle obj angw)
-					(vla-Update obj)
+					(setq pname (vla-get-PatternName obj))
+					(cond
+						((= pname "_USER")
+							(command "_hatchedit"  ename "p" "u" "" "" "")
+							(vla-put-PatternAngle obj angw)
+							(vla-Update obj)
+						)
+						((= pname "SOLID")
+							;;(print "solid")
+						)
+						(t
+							(command "_hatchedit"  ename "p" "" "" "")
+							;;(while (= (getvar "cmdactive") 1) (command ""))
+							(vla-put-PatternAngle obj angw)
+							(vla-Update obj)
+						)
+					)
 					(setq i (1+ i))
 				)
 				(command "_ucs" "p")
@@ -37,6 +50,7 @@
 		(while (= (getvar "cmdactive") 1) (command ""))
 		(if ucsChanged (command "_ucs" "p"))
 		(princ "\n😆")
+		(princ s)
 		(vla-EndUndoMark doc)
 		(princ)
 	)
