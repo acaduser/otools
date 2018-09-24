@@ -52,11 +52,8 @@
 				)
 				;3byte code
 				((= b11100000 (logand b11110000 (car lst)))
-
 					(setq tmp (list (car lst) (cadr lst) (caddr lst)))
-
 					(setq tmp (encoding3 tmp))
-					;;(print tmp)
 					(setq buff (cons tmp buff))
 					(setq lst (cdddr lst))
 				)
@@ -66,8 +63,6 @@
 					(setq tmp (encoding4 tmp))
 					(setq buff (cons tmp buff))
 					(setq lst (cddddr lst))
-
-
 				)
 				(t
 					(setq isUtf8 nil)
@@ -77,14 +72,13 @@
 		(if isUtf8
 			(progn
 				(setq buff (reverse buff))
-				(eval (read (strcat "(progn" (apply 'strcat buff) ")" )))
+				(eval (read (strcat "(progn " (apply 'strcat buff) ")" )))
 			)
 			(progn
 				(princ "\n can not UCF-8 decoding. using load function.")
 				(load fn nil)
 			)
 		)
-		(princ)
 	)
 	(defun encoding2 (moji)
 		(setq bit1-6 (logand (cadr moji) 63))
@@ -99,13 +93,11 @@
 		(setq bit1-8 (logior bit1-6 (lsh (logand bit7-12 3) 6)))
 		(setq bit9-16 (logior (lsh (logand bit13-16 15) 4) (lsh (logand bit7-12 (+ 4 8 16 32)) -2)))
 		(setq bit1-16 (logior (lsh bit9-16 8) bit1-8))
-
 		(strcat "\\u+" (dechex bit1-16))
 	)
 	(defun encoding4 (moji)
 		(setq aaa nil)
 		(setq int32 (+ (lsh (car moji) 24)))
-
 		(setq bit1-6 (logand (cadddr moji) 127))
 		(setq bit7-12 (logand (caddr moji) 127))
 		(setq bit13-18 (logand (cadr moji) 127))
@@ -113,15 +105,11 @@
 		(setq int (+ bit1-6 (lsh bit7-12 6) (lsh bit13-18 12) (lsh bit19-21 15)))
 		(setq x10000 65536)
 		(setq int (- int x10000))
-
 		(setq xD800 55296)
 		(setq xDC00 56320)
 		(setq utf16hi (+ (lsh int -10) xD800))
 		(setq utf16low (+ (logand int 1023)xDC00))
-
-		
 		(strcat "\\u+" (dechex utf16hi) "\\u+" (dechex utf16low))
-
 	)
 	(defun dechex(num / loop n str)
 		(setq loop t str "")
@@ -147,7 +135,6 @@
 	) 
 	(main)
 )
-
 (defun utf8demandLoad (fileName symList)
 	(vl-load-com)
 	(demandLoad-varidate symList)

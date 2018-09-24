@@ -24,6 +24,10 @@
 (vl-catch-all-apply 'setvar '("selectioncycling" 0))
 (vl-catch-all-apply 'setvar '("osoptions" 0))
 (vl-catch-all-apply 'setvar '("dynmode" 1))
+(vl-catch-all-apply 'setvar '("layerdlgmode" 0))
+(vl-catch-all-apply 'setvar '("dynpicoords" 1)) ;絶対座標
+(vl-catch-all-apply 'setvar '("hqgeom" 0))
+(vl-catch-all-apply 'setvar '("linesmoothing" 0))
 
 ;;システム変数　図面
 (setvar "dimassoc" 1)
@@ -36,11 +40,13 @@
 (setvar "ucsicon" 1)
 (vl-catch-all-apply 'setvar '("clayer" "0"))
 (setvar "snapmode" 0)
+(vl-catch-all-apply 'setvar '("draworderctl" 0))
 
 ;;短縮コマンド
 (defun c:b () (command "_break"))
 (defun c:c () (command "_copy"))
 (defun c:d () (command "_dist"))
+(defun c:dd () (command "_ddedit"))
 (defun c:et () (command "_extend"))
 (defun c:t () (command "_trim"))
 (defun c:n () (command "_matchprop"))
@@ -69,11 +75,25 @@
 (defun c:ext () (c:exchangetext))
 (defun c:cc () (c:stackCopy))
 (defun c:ccc () (c:stackCopy))
+(defun c:para () (c:parallelogram))
 (defun c:ppn () (c:pviewportPan))
 (defun c:ptm () (c:pviewportToModel))
 (defun c:vl () (c:pviewportLock))
 (defun c:rcss () (c:chBylayerColor))
 (defun c:srt () (c:srtObj))
 (defun c:tc () (c:copyText))
+
+
+(defun c:fb() (ssget '((0 . "INSERT"))))
+(defun c:fci() (ssget '((0 . "CIRCLE"))))
+(defun c:fd() (ssget '((0 . "DIMENSION"))))
+(defun c:fh() (ssget '((0 . "HATCH"))))
+(defun c:fli() (ssget '((0 . "LINE"))))
+(defun c:fmt() (ssget '((0 . "MTEXT"))))
+(defun c:fp() (ssget '((0 . "POINT"))))
+(defun c:fpl() (ssget '((0 . "LWPOLYLINE"))))
+(defun c:fso() (ssget '((0 . "3DSOLID"))))
+(defun c:ft() (ssget '((0 . "TEXT"))))
+
 
 (defun c:res () (load "acaddoc.lsp" nil))

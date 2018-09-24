@@ -30,3 +30,5 @@
 (utf8demandload "angText.lsp" '(c:angText))
 
 (utf8demandload "hatchMove.lsp" '(c:hatchMove))
+
+(utf8demandload "parallelogram.lsp" '(c:parallelogram))

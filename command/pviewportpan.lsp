@@ -125,25 +125,10 @@
 			 		)
 			 	)
 			)
-			;;(progn
-				;;(princ "モデルスペースに切り替えれません\n")
-			;;)
 		)
 		(if (>= i (- (sslength ss) 1))
 			(progn
 				(command "pspace")
-				;;(vla-put-mspace acdoc ':vlax-false) ;;改行がなぜか入る
-			)
-		)
-		
-	)
-	(defun getactivespace (d / s l)
-		(setq l (vla-get-activelayout d))
-		(if (=  (vla-get-name l) "Model")
-			(setq s (vla-get-modelspace d))
-			(if (= (vla-get-mspace d) ':vlax-true)
-				(setq s (vla-get-modelspace d))
-				(setq s (vla-get-paperspace d))
 			)
 		)
 	)
