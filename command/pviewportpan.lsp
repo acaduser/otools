@@ -1,7 +1,7 @@
 (defun c:pviewportpan
 	(/
 		;function
-		program newerror olderror 
+		program *error* 
 		getactivespace userinput
 		;private
 		acapp acdoc acspace acutl aclayt acmspace acmlayout zeropt
@@ -12,7 +12,6 @@
 		(princ (strcat"\nビューポート表示範囲移動"))
 		(vl-load-com)
 		(setvar "cmdecho" 0)
-		(setq olderror *error* *error* newerror)
 		(setq acapp (vlax-get-acad-object))
 		(setq acdoc (vla-get-activedocument acapp))
 		(setq acpspace(vla-get-paperspace acdoc))
@@ -37,12 +36,9 @@
 			)
 			(princ "\nモデル空間では使用できません")
 		)
-		(setq *error* olderror)
+		
 		(command "undo" "e")
 		(princ)
-	)
-	(defun newerror(s)
-		(princ s)(command "undo" "e")(setq *error* olderror)(princ)
 	)
 	(defun userinput(/ i )
 		(initget 7)
@@ -131,6 +127,11 @@
 				(command "pspace")
 			)
 		)
+	)
+	(defun *error*(s)	
+		(princ (strcat "\n" s))
+		(vla-EndUndoMark doc)
+		(princ)
 	)
 	(apply 'program nil)
 )

@@ -42,7 +42,7 @@
 	)
 	(defun *error* (s)
 		(if line (vla-Delete line))
-		(if ucsChanged (command "_ucs" "p"))
+		(if ucsChanged (command-s "_ucs" "_p"))
 		(vla-EndUndoMark doc)
 		(princ s)
 		(princ)

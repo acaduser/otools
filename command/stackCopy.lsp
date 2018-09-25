@@ -154,7 +154,7 @@
 		(reverse tmp)
 	)
 	(defun *error*(s)	
-		(if UcsIsChanged (command "_ucs" "_p" ))
+		(if UcsIsChanged (command-s "_ucs" "_p" ))
 		(if ucsicon (setvar "ucsicon" ucsicon))
 		(setvar "cmdecho" cmdecho)
 		(princ (strcat "\n" s))

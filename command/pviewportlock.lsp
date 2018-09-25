@@ -1,18 +1,10 @@
 (defun c:pviewportlock
 	(/
-		main vplock 
+		main vplock *error*
 		app doc
 	)
 	(vl-load-com)
 	(defun main(/ utl kw olderror newerror)
-		(terpri)
-		;;(command "undo" "e" "undo" "be")
-		(setq olderror *error*)
-		(setq *error*
-			(defun newerror(s)
-				(princ (strcat s))(command "undo" "e")(setq *error* olderror)(princ)
-			)
-		)
 		(setvar "cmdecho" 0)
 		(setq app (vlax-get-acad-object))
 		(setq doc (vla-get-activedocument app))
@@ -24,8 +16,6 @@
 			((= kw "N") (vplock 0))
 			(t (vplock 1))
 		)
-		(setq *error* olderror)
-		;;(command "undo" "e")
 		(princ)
 	)
 	(defun vplock(lock / layouts layout block ent oname cnt)
@@ -59,6 +49,11 @@
 			(princ (strcat "\nビューポートはロックされました．"))
 			(princ (strcat "\nビューポートは解除されました．"))
 		)
+	)
+	(defun *error*(s)	
+		(princ (strcat "\n" s))
+		(vla-EndUndoMark doc)
+		(princ)
 	)
 	(apply 'main nil)
 )
