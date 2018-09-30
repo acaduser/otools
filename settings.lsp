@@ -60,7 +60,7 @@
 (defun c:ant () (c:angText))
 
 (defun c:at () (c:alignmentText))
-
+(defun c:bgc () (c:bgcCtrl))
 (defun c:hm () (c:hatchMove))
 (defun c:ed () (c:extEditor))
 (defun c:xt () (c:exchangeText))

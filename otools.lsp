@@ -34,4 +34,5 @@
 (utf8demandload "parallelogram.lsp" '(c:parallelogram))
 
 (utf8demandload "alignmentText.lsp" '(c:alignmentText))
+(utf8demandload "bgcCtrl.lsp" '((c:bgcCtrl) (c:bgcCtrl_Model a) (c:bgcCtrl_Layout a)))
 
