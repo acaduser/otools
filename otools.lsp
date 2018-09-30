@@ -32,3 +32,6 @@
 (utf8demandload "hatchMove.lsp" '(c:hatchMove))
 
 (utf8demandload "parallelogram.lsp" '(c:parallelogram))
+
+(utf8demandload "alignmentText.lsp" '(c:alignmentText))
+

@@ -58,6 +58,9 @@
 (defun c:anb () (c:angBlock))
 (defun c:anh () (c:angHatch))
 (defun c:ant () (c:angText))
+
+(defun c:at () (c:alignmentText))
+
 (defun c:hm () (c:hatchMove))
 (defun c:ed () (c:extEditor))
 (defun c:xt () (c:exchangeText))
@@ -95,5 +98,6 @@
 (defun c:fso() (ssget '((0 . "3DSOLID"))))
 (defun c:ft() (ssget '((0 . "TEXT"))))
 
+(defun c:df() (startapp "explorer" (getvar "dwgprefix")))
 
 (defun c:res () (load "acaddoc.lsp" nil))
