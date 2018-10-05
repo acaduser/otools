@@ -21,13 +21,13 @@
 (vl-catch-all-apply 'setvar '("secureload" 0))
 (vl-catch-all-apply 'setvar '("dtexted" 1))
 (vl-catch-all-apply 'setvar '("layernotify" 0))
-(vl-catch-all-apply 'setvar '("selectioncycling" 0))
 (vl-catch-all-apply 'setvar '("osoptions" 0))
 (vl-catch-all-apply 'setvar '("dynmode" 1))
 (vl-catch-all-apply 'setvar '("layerdlgmode" 0))
 (vl-catch-all-apply 'setvar '("dynpicoords" 1)) ;絶対座標
 (vl-catch-all-apply 'setvar '("hqgeom" 0))
 (vl-catch-all-apply 'setvar '("linesmoothing" 0))
+(vl-catch-all-apply 'setvar '("rollovertips" 0))
 
 ;;システム変数　図面
 (setvar "dimassoc" 1)
@@ -45,6 +45,7 @@
 ;;短縮コマンド
 (defun c:b () (command "_break"))
 (defun c:c () (command "_copy"))
+(defun c:cu () (command "_laycur"))
 (defun c:d () (command "_dist"))
 (defun c:dd () (command "_ddedit"))
 (defun c:et () (command "_extend"))
