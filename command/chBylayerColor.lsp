@@ -11,7 +11,7 @@
 		(if
 			(and	
 				(setq ss (ssget))
-				(setq index (acad_colordlg 7 t))
+				(setq index (acad_colordlg 7 nil))
 			)
 			(progn
 				(setq ssList
