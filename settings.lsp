@@ -63,6 +63,9 @@
 (defun c:at () (c:alignmentText))
 (defun c:bgc () (c:bgcCtrl))
 (defun c:hm () (c:hatchMove))
+
+(defun c:ee () (c:easyExtend))
+
 (defun c:ed () (c:extEditor))
 (defun c:xt () (c:exchangeText))
 (defun c:g () (c:grip))
