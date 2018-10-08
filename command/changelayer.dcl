@@ -25,6 +25,7 @@ lineTypeDlg : dialog
 				value = "";
 				width = 24;
 				is_enabled = false;
+				allow_accept = true;
 			}  
 		}
 		ok_cancel;
