@@ -45,6 +45,7 @@
 ;;短縮コマンド
 (defun c:b () (command "_break"))
 (defun c:c () (command "_copy"))
+(defun c:ca () (command "_laymcur"))
 (defun c:cu () (command "_laycur"))
 (defun c:d () (command "_dist"))
 (defun c:dd () (command "_ddedit"))
