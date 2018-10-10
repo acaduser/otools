@@ -1,6 +1,7 @@
 (defun c:layAllOn(/ doc)
 	(vl-load-com)
 	(setq doc (vla-get-ActiveDocument (vlax-get-acad-object)))
+	(princ "\n💡")
 	(vla-StartUndoMark doc)
 	(acet-layerp-mark t)
 	(vlax-for lay (vla-get-Layers doc)
