@@ -105,4 +105,25 @@
 
 (defun c:df() (startapp "explorer" (getvar "dwgprefix")))
 
+
+;;hojo line
+(defun c:rayU (/ *error*)
+	(if (setq pt (getpoint "\npt:"))(command "_.ray" "_non" pt "_non" "@0,1" ""))
+)
+(defun c:rayD (/ *error*)
+	(if (setq pt (getpoint "\npt:"))(command "_.ray" "_non" pt "_non" "@0,-1" ""))
+)
+(defun c:rayL (/ *error*)
+	(if (setq pt (getpoint "\npt:"))(command "_.ray" "_non" pt "_non" "@-1,0" ""))
+)
+(defun c:rayR (/ *error*)
+	(if (setq pt (getpoint "\npt:"))(command "_.ray" "_non" pt "_non" "@1,0" ""))
+)
+(defun c:xx (/ *error*)
+	(if (setq pt (getpoint "\npt:"))(command "_.xline" "_non" pt "_non" "@1,0" ""))
+)
+(defun c:yy (/ *error*)
+	(if (setq pt (getpoint "\npt:"))(command "_.xline" "_non" pt "_non" "@0,1" ""))
+)
+
 (defun c:res () (load "acaddoc.lsp" nil))
