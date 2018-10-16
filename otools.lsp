@@ -37,4 +37,4 @@
 (utf8demandload "bgcCtrl.lsp" '((c:bgcCtrl) (c:bgcCtrl_Model a) (c:bgcCtrl_Layout a)))
 
 (utf8demandload "easyExtend.lsp" '(c:easyExtend))
-
+(utf8demandload "easyBlock.lsp" '(c:easyBlock))

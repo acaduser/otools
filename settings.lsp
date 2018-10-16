@@ -65,6 +65,8 @@
 (defun c:bgc () (c:bgcCtrl))
 (defun c:hm () (c:hatchMove))
 
+(defun c:eb () (c:easyBlock))
+
 (defun c:ee () (c:easyExtend))
 
 (defun c:ed () (c:extEditor))
