@@ -56,16 +56,16 @@
 					((= key "C")
 						(setq lst (vl-sort lst 
 								'(lambda(a b)									
-								(< (length (vl-string->list (cdr (assoc 1 (entget a))))) (length (vl-string->list (cdr (assoc 1 (entget b))))))
 									
+									(< (cdr (assoc 1 (entget a))) (cdr (assoc 1 (entget b))))
 									
 								)
 							)
 						)
 						(setq lst (vl-sort lst 
 								'(lambda(a b)									
+								(< (length (vl-string->list (cdr (assoc 1 (entget a))))) (length (vl-string->list (cdr (assoc 1 (entget b))))))
 									
-									(< (cdr (assoc 1 (entget a))) (cdr (assoc 1 (entget b))))
 									
 								)
 							)
