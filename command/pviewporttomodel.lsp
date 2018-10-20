@@ -81,6 +81,7 @@
 						(vla-ScaleEntity acpline zeropt (/ 1 customscale))
 						(vla-Rotate acpline zeropt (* -1 twist))
 						(vla-Move acpline zeropt (vlax-3d-point viewcenter))
+						(vla-Update acpline)
 			 		)
 			 		(progn
 			 		 	(vla-put-MSpace doc ':vlax-false)
@@ -126,6 +127,7 @@
 						(vla-ScaleEntity acpline zeropt (/ 1 customscale))
 						(vla-Rotate acpline zeropt (* -1 twist))
 						(vla-Move acpline zeropt (vlax-3d-point viewcenter))
+						(vla-Update acpline)
 			 		)
 			 		(progn
 			 		 	(vla-put-MSpace doc ':vlax-false)
