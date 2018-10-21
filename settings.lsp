@@ -14,7 +14,7 @@
 (setvar "sortents" 127)
 (vl-catch-all-apply 'setvar '("vtenable" 0))
 (vl-catch-all-apply 'setvar '("zoomfactor" 70))
-(vl-catch-all-apply 'setvar '("draworderctl" 0))
+
 (vl-catch-all-apply 'setvar '("selectioncycling" 0))
 (vl-catch-all-apply 'setvar '("selectionpreview" 0))
 (vl-catch-all-apply 'setvar '("selectionarea" 0))
@@ -28,6 +28,7 @@
 (vl-catch-all-apply 'setvar '("hqgeom" 0))
 (vl-catch-all-apply 'setvar '("linesmoothing" 0))
 (vl-catch-all-apply 'setvar '("rollovertips" 0))
+(vl-catch-all-apply 'setvar '("gripmultifunctional" 1))
 
 ;;システム変数　図面
 (setvar "dimassoc" 1)
@@ -41,6 +42,9 @@
 (vl-catch-all-apply 'setvar '("clayer" "0"))
 (setvar "snapmode" 0)
 (vl-catch-all-apply 'setvar '("draworderctl" 0))
+
+;;システム変数　ユーザー設定
+(vl-catch-all-apply 'setvar '("hpdlgmode" 1)) 
 
 ;;短縮コマンド
 (defun c:b () (command "_break"))
@@ -56,6 +60,8 @@
 (defun c:o () (command "_offset" "l" "s" "e" "n"))
 (defun c:oo () (command "_offset" "l" "c" "e" "n"))
 (defun c:ooo () (command "_offset" "l" "s" "e" "y"))
+;;(defun c:ddf () (ai_draworder "f"))
+;;(defun c:ddb () (ai_draworder "b"))
 
 (defun c:anb () (c:angBlock))
 (defun c:anh () (c:angHatch))
@@ -105,8 +111,9 @@
 (defun c:fso() (ssget '((0 . "3DSOLID"))))
 (defun c:ft() (ssget '((0 . "TEXT"))))
 
-(defun c:df() (startapp "explorer" (getvar "dwgprefix")))
 
+(defun c:df() (startapp "explorer" (getvar "dwgprefix")))
+(defun c:tf() (startapp "explorer" (vl-filename-directory (vl-filename-mktemp) )))
 
 ;;hojo line
 (defun c:rayU (/ *error*)
