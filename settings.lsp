@@ -41,7 +41,7 @@
 (setvar "ucsicon" 1)
 (vl-catch-all-apply 'setvar '("clayer" "0"))
 (setvar "snapmode" 0)
-(vl-catch-all-apply 'setvar '("draworderctl" 0))
+(vl-catch-all-apply 'setvar '("draworderctl" 1))
 
 ;;システム変数　ユーザー設定
 (vl-catch-all-apply 'setvar '("hpdlgmode" 1)) 
