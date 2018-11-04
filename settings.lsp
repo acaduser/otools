@@ -79,6 +79,7 @@
 (defun c:xt () (c:exchangeText))
 (defun c:g () (c:grip))
 (defun c:gr () (c:changeLayer))
+(defun c:gc () (c:changeColor))
 (defun c:ra () (c:layAllOn))
 (defun c:fa () (c:layAllOff))
 (defun c:rss () (c:laySSOn))
