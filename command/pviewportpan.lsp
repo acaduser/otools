@@ -130,7 +130,7 @@
 	)
 	(defun *error*(s)	
 		(princ (strcat "\n" s))
-		(vla-EndUndoMark doc)
+		(vla-EndUndoMark acdoc)
 		(princ)
 	)
 	(apply 'program nil)
