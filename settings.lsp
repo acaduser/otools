@@ -22,13 +22,14 @@
 (vl-catch-all-apply 'setvar '("dtexted" 1))
 (vl-catch-all-apply 'setvar '("layernotify" 0))
 (vl-catch-all-apply 'setvar '("osoptions" 0))
-(vl-catch-all-apply 'setvar '("dynmode" 1))
+(vl-catch-all-apply 'setvar '("dynmode" 1));IME bug
 (vl-catch-all-apply 'setvar '("layerdlgmode" 0))
 (vl-catch-all-apply 'setvar '("dynpicoords" 1)) ;絶対座標
 (vl-catch-all-apply 'setvar '("hqgeom" 0))
 (vl-catch-all-apply 'setvar '("linesmoothing" 0))
 (vl-catch-all-apply 'setvar '("rollovertips" 0))
 (vl-catch-all-apply 'setvar '("gripmultifunctional" 1))
+(setvar "pickauto" 1)
 
 ;;システム変数　図面
 (setvar "dimassoc" 1)
