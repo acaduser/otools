@@ -96,6 +96,7 @@
 (defun c:para () (c:parallelogram))
 (defun c:ppn () (c:pviewportPan))
 (defun c:ptm () (c:pviewportToModel))
+(defun c:v () (c:pviewportLock))
 (defun c:vl () (c:pviewportLock))
 (defun c:rcss () (c:chBylayerColor))
 (defun c:srt () (c:srtObj))
