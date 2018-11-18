@@ -1,9 +1,15 @@
 (vl-load-com)
-(setq *start* (getvar "date"))
+(if (>= (atof (getvar "acadver")) 21.0)
+	(setq *start* (getvar "millisecs"))
+	(setq *start* (getvar "date"))
+)
 
 (load "otools.lsp" nil)
 ;;(load "settings.lsp" nil)
 
 (princ (strcat "\n" (findfile "acaddoc.lsp") ""))
-(princ (strcat " " (rtos (* 60 60 24 (- (getvar "date") *start*)) 2 2) "s"))
+(if (>= (atof (getvar "acadver")) 21.0)
+	(princ (strcat " " (rtos (* (- (getvar "millisecs") *start*) 0.001) 2 2) "s"))
+	(princ (strcat " " (rtos (* 60 60 24 (- (getvar "date") *start*)) 2 2) "s"))
+)
 (princ)
