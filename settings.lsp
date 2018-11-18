@@ -115,6 +115,7 @@
 (defun c:ft() (ssget '((0 . "TEXT"))))
 
 
+(defun c:calc () (startapp "calc"))
 (defun c:df() (startapp "explorer" (getvar "dwgprefix")))
 (defun c:tf() (startapp "explorer" (vl-filename-directory (vl-filename-mktemp) )))
 
