@@ -69,6 +69,9 @@
 (defun c:ant () (c:angText))
 
 (defun c:at () (c:alignmentText))
+
+(defun c:atot () (c:attdefToText))
+
 (defun c:bgc () (c:bgcCtrl))
 (defun c:hm () (c:hatchMove))
 

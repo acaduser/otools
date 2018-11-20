@@ -1,5 +1,6 @@
 (vl-load-com)
 (load "utf8loader.lsp" nil)
+(utf8demandload "attdefToText.lsp" '(c:attdefToText))
 (utf8demandload "changeLayer.lsp" '(c:changeLayer))
 (utf8demandload "changeColor.lsp" '(c:changeColor))
 (utf8demandload "chBylayerColor.lsp" '(c:chBylayerColor))
