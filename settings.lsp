@@ -3,24 +3,21 @@
 (setvar "coords" 2)
 (setvar "cursorsize" 100)
 (setvar "filedia" 1)
-(setvar "bindtype" 1)
 (setvar "dragmode" 2)
 (setvar "edgemode" 1)
-(setvar "hpname" "SOLID")
+(setvar "pickauto" 1)
 (setvar "pickbox" 6)
 (setvar "pickstyle" 0)
 (setvar "polarang" (/ pi 12))
 (setvar "proxynotice" 0)
-(setvar "sortents" 127)
 (vl-catch-all-apply 'setvar '("vtenable" 0))
 (vl-catch-all-apply 'setvar '("zoomfactor" 70))
-
 (vl-catch-all-apply 'setvar '("selectioncycling" 0))
 (vl-catch-all-apply 'setvar '("selectionpreview" 0))
 (vl-catch-all-apply 'setvar '("selectionarea" 0))
 (vl-catch-all-apply 'setvar '("secureload" 0))
 (vl-catch-all-apply 'setvar '("dtexted" 1))
-(vl-catch-all-apply 'setvar '("layernotify" 0))
+(vl-catch-all-apply 'setvar '("texted" 1))
 (vl-catch-all-apply 'setvar '("osoptions" 0))
 (vl-catch-all-apply 'setvar '("dynmode" 1));IME bug
 (vl-catch-all-apply 'setvar '("layerdlgmode" 0))
@@ -29,9 +26,9 @@
 (vl-catch-all-apply 'setvar '("linesmoothing" 0))
 (vl-catch-all-apply 'setvar '("rollovertips" 0))
 (vl-catch-all-apply 'setvar '("gripmultifunctional" 1))
-(setvar "pickauto" 1)
 
 ;;システム変数　図面
+(setvar "sortents" 127)
 (setvar "dimassoc" 1)
 (setvar "filletrad" 0)
 (setvar "mirrtext" 0)
@@ -40,20 +37,30 @@
 (setvar "celtscale" 1)
 (setvar "celweight" -1)
 (setvar "ucsicon" 1)
-(vl-catch-all-apply 'setvar '("clayer" "0"))
 (setvar "snapmode" 0)
+(vl-catch-all-apply 'setvar '("clayer" "0"))
 (vl-catch-all-apply 'setvar '("draworderctl" 1))
+(vl-catch-all-apply 'setvar '("layernotify" 0))
 
 ;;システム変数　ユーザー設定
 (vl-catch-all-apply 'setvar '("hpdlgmode" 1)) 
+
+;;システム変数　保存なし
+(setvar "bindtype" 1)
+(setvar "hpname" "SOLID")
 
 ;;短縮コマンド
 (defun c:b () (command "_break"))
 (defun c:c () (command "_copy"))
 (defun c:ca () (command "_laymcur"))
+(defun c:ga (/ *error*)
+	(if (setq lname (getstring "\nlname:"))(command "_.layer" "m" lname ""))
+	lname
+)
+(defun c:cb () (command "_copybase"))
+
 (defun c:cu () (command "_laycur"))
 (defun c:d () (command "_dist"))
-(defun c:dd () (command "_ddedit"))
 (defun c:et () (command "_extend"))
 (defun c:t () (command "_trim"))
 (defun c:n () (command "_matchprop"))
@@ -93,7 +100,6 @@
 (defun c:fs () (c:layPickNestOff))
 (defun c:fn () (c:layPickNestOff))
 (defun c:rev () (c:layRev))
-(defun c:ext () (c:exchangetext))
 (defun c:cc () (c:stackCopy))
 (defun c:ccc () (c:stackCopy))
 (defun c:para () (c:parallelogram))
