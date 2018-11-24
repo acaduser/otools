@@ -1,11 +1,11 @@
 lineTypeDlg : dialog
 {
-	label = "layers";
+	label = "🌈changeLayer";
 	: column
 	{
 		: list_box
 		{
-			height = 48;
+			height = 40;
 			width = 36;
 			key = "listbox";
 			allow_accept = true;
@@ -14,7 +14,7 @@ lineTypeDlg : dialog
 		{
 			: toggle
 			{
-				label = "layer or make layer";
+				label = "画層名指定";
 				key = "userInput";
 
 			}

@@ -1,56 +1,45 @@
 (defun c:changeLayer
 	(/
-		*error* main
-		oApp oDoc
+		*error* main doc
 	)
 	(defun main ()
 		(vl-load-com)
-		(princ "\nオブジェクト画層変更")
-		(setq oApp (vlax-get-acad-object))
-		(setq oDoc (vla-get-ActiveDocument oApp))
-		(vla-StartUndoMark oDoc)
+		(princ "\n🌈changeLayer")
+		(vla-StartUndoMark (setq doc (vla-get-ActiveDocument (vlax-get-acad-object))))
 		(if (setq ss (ssget "_:L"))
 			(progn
 				(initget " ")
-				(setq res(entsel "\n参考にするオブジェクト選択<ダイアログ>:"))
+				(setq res (entsel "\n参考にするオブジェクト選択<ダイアログ>:"))
 				(cond
 					((= res "")
 						(setq res (layerDlg "0" t))
-						;;(print res)
 						(if res (modifyName ss res))
-						
 					)
 					((= (type res) 'LIST)
 						(modifyName ss (cdr(assoc 8 (entget (car res)))))
 					)
-					((= ename nil)
-					
-					)
 				)
 			)
 		)
-		(vla-EndUndoMark oDoc)
-		(vlax-release-object oApp)
+		(vla-EndUndoMark doc)
 		(princ)
 	)
 	(defun layerDlg(name flag / names num id tbl res)
 		(setq name (strcase name))
 		(setq tempDcl (findfile "changelayer.dcl"))
-		(if (new_dialog "lineTypeDlg" (setq id (load_dialog tempDcl)))
+		(if (new_dialog "lineTypeDlg" (setq id (utf8load_dialog tempDcl)))
 			(progn
 				(action_tile "accept" "(OnAccept_Clicked $value)")
 				(action_tile "cancel" "(OnCancel_Clicked $value)")
 				(action_tile "userInput" "(OnUserInput_clicked $value)")
 				(action_tile "userValue" "")
 				(action_tile "listbox" "(OnListbox_clicked $value)")
-				;;(if flag (setq names (list "ByLayer" "Byblock")))
 				(while (if (null tbl) (setq tbl (tblnext "LAYER" t)) (setq tbl (tblnext "LAYER")))
 					(setq lname (cdr (assoc 2 tbl)))
 					(if (wcmatch lname "~*|*")
 						(setq names (cons lname names))
 					)
 				)
-				;;(print names)
 				(setq names (vl-sort names '(lambda(a b)(< (strcase a) (strcase b)))))
 				(start_list "listbox")
 				(mapcar 'add_list  names)
@@ -61,15 +50,11 @@
 				)
 				(set_tile "listbox" num)
 				(setq res (start_dialog))
-				
 				(unload_dialog id)
 			)
 		)
-		;;(vl-file-delete tempDcl)
 		(if (/= res 0)
 			(progn
-				
-				;;(print (list "st" st))
 				(cond
 					((= st "0")
 						(setq ret (nth (atoi num) names))
@@ -84,23 +69,15 @@
 	(defun OnAccept_Clicked(e)
 		(setq newname (get_tile "userValue"))
 		(setq st (get_tile "userInput"))
-		
-		;;(print e)
 		(done_dialog 1)
-		
 	)
 	(defun OnCancel_Clicked(e)
 		(done_dialog 0)
-		;;(print e)
-		
-		
 	)
 	(defun OnListBox_Clicked(e)
 		(setq num e)
 	)
 	(defun OnUserInput_Clicked(e)
-		;;(print e)
-		
 		(if (= e "1")
 			(progn
 				(mode_tile "listbox" 1)
@@ -119,15 +96,13 @@
 				(princ (strcat "\n" lname " は作成されました。"))
 			)
 		)
-		(setq cmdecho (getvar "cmdecho"))
-		(setvar "cmdecho" 0)
 		(command "_.chprop" ss "" "la" lname "")
-		(setvar "cmdecho" cmdecho)
 		(princ (strcat "\n" lname))
 	)
 	(defun *error*(s)
-		(vla-EndUndoMark oDoc)
-		(if (/= (ascii s) 138)(princ s))
+		(vla-EndUndoMark doc)
+		(princ (strcat "\n" s))
+		(princ)
 	)
 	(apply 'main nil)
 )
