@@ -53,7 +53,7 @@
 (defun c:b () (command "_break"))
 (defun c:c () (command "_copy"))
 (defun c:ca () (command "_laymcur"))
-(defun c:ga (/ *error*)
+(defun c:ga (/ *error* lname)
 	(if (setq lname (getstring "\nlname:"))(command "_.layer" "m" lname ""))
 	lname
 )
@@ -109,7 +109,7 @@
 (defun c:vl () (c:pviewportLock))
 (defun c:rcss () (c:chBylayerColor))
 (defun c:srt () (c:srtObj))
-(defun c:tc () (c:copyText))
+(defun c:tc () (c:copyTextStr))
 
 
 (defun c:fb() (ssget '((0 . "INSERT"))))

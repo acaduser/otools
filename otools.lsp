@@ -4,7 +4,7 @@
 (utf8demandload "changeLayer.lsp" '(c:changeLayer))
 (utf8demandload "changeColor.lsp" '(c:changeColor))
 (utf8demandload "chBylayerColor.lsp" '(c:chBylayerColor))
-(utf8demandLoad "copyText.lsp" '(c:copyText))
+(utf8demandLoad "copyTextStr.lsp" '(c:copyTextStr))
 (utf8demandload "exchangeText.lsp" '(c:exchangeText))
 (utf8demandload "extEditor.lsp" '(c:extEditor))
 

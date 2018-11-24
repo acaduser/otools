@@ -1,11 +1,11 @@
-(defun c:copyText
+(defun c:copyTextStr
 	(/
 		*error* main doc modifymany modifysingle recovery secondinput
 		ret bobj sobj hobj 
 	)
 	(defun main()
 		(vl-load-com)
-		(princ "\ntextCopy")
+		(princ "\ncopyTextStr")
 		(setq doc (vla-get-ActiveDocument (vlax-get-acad-object)))
 		(vla-StartUndoMark doc)
 		(setq ret (entsel "\n参考にするオブジェクト選択:"))
@@ -63,7 +63,8 @@
 											(= (vla-get-ObjectName bobj) "AcDbMText")
 											(= (vla-get-ObjectName bobj) "AcDbAttribute")
 										)
-										(setq bstr (vla-get-TextString bobj))
+										;;(setq bstr (vla-get-TextString bobj))
+										(setq bstr (cdr (assoc 1 (entget (vlax-vla-object->ename bobj)))))
 									)
 									(
 										(or
