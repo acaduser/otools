@@ -79,16 +79,25 @@ UTF-8を想定しファイルをデコードしロードする。
 
 	(utf8load "example.lsp")
 
+デコードが成功したらtempフォルダにファイルを作成しロードする。
+
 もしUTF-8エンコーディングが不正だと判断したら、load関数でロードを試みる。
+
+### utf8load_dialog 関数
+UTF-8を想定しファイルをデコードしロードする。
+
+	(utf8load_dialog "example.lsp")
+
+デコードが成功したらtempフォルダにファイルを作成しロードする。
+
+もしUTF-8エンコーディングが不正だと判断したら、load_dialog関数でロードを試みる。
 
 ### utf8demandload 関数
 コマンドが実行されたとき随時ファイルを読み込む関数を定義する。
 
 	(utf8demandload "example.lsp" '(c:example))
 
-第1引数はファイル名。load関数のような拡張子の暗黙付加はしない。
-
-理由は拡張子に意味をなさない。
+第1引数は拡張子を含めたファイル名。
 
 第2引数は評価可能なリストとする。
 
@@ -132,7 +141,12 @@ UTF-8を想定しファイルをデコードしロードする。
 * angText
 
 	文字オブジェクトの回転角度を2点指示で変更。
+
+---
 	
+## attdefToText.lsp
+
+* attdefToText
 
 ------
 
@@ -162,9 +176,9 @@ UTF-8を想定しファイルをデコードしロードする。
 
 ------
 
-## copyText.lsp
+## copyTextStr.lsp
 
-* copyText
+* copyTextStr
 
 	文字オブジェクトの文字列内容をコピーする。
 
@@ -271,7 +285,7 @@ UTF-8を想定しファイルをデコードしロードする。
 -------
 
 	
-## pviewportPan
+## pviewportPan.lsp
 
 * pviewportPan
 
@@ -280,7 +294,7 @@ UTF-8を想定しファイルをデコードしロードする。
 -------
 
 	
-## pviewportModel
+## pviewportToModel.lsp
 
 * pviewpotToModel
 
