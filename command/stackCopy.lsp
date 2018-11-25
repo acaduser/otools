@@ -36,7 +36,7 @@
 				(setq ang (angle pt1 pt2))
 				(setq baseSa
 					(vlax-safearray-fill
-						(vlax-make-safearray vlax-vbobject (cons 0 (1- (length objects))))
+						(vlax-make-safearray vlax-vbObject (cons 0 (1- (length objects)))) 
 						objects
 					)
 				)
@@ -127,13 +127,13 @@
 		(setq saList (cons sa saList))
 		(foreach o (vlax-safearray->list sa)
 			(setq tmp
-				(vla-TransformBy o  mat)
+				(vl-catch-all-apply 'vla-TransformBy (list o  mat))
 			)
 		)
 	)	
 	(defun del(/ tmp)
 		(foreach o (vlax-safearray->list (car saList))
-			(setq tmp(vl-catch-all-apply 'vla-Delete (list o )))           
+			(setq tmp (vl-catch-all-apply 'vla-Delete (list o)))           
 		)
 		(setq saList (cdr saList))
 	)
