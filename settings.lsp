@@ -126,7 +126,7 @@
 
 (defun c:calc () (startapp "calc"))
 (defun c:df() (startapp "explorer" (getvar "dwgprefix")))
-(defun c:tf() (startapp "explorer" (vl-filename-directory (vl-filename-mktemp) )))
+(defun c:tf() (startapp "explorer" (vl-filename-directory (vl-filename-mktemp))))
 
 ;;hojo line
 (defun c:rayU (/ *error*)
@@ -147,5 +147,8 @@
 (defun c:yy (/ *error*)
 	(if (setq pt (getpoint "\npt:"))(command "_.xline" "_non" pt "_non" "@0,1" ""))
 )
+
+(defun c:pua () (command "_.-purge" "_a" "*" "n"))
+(defun c:pub () (command "_.-purge" "_b" "*" "n"))
 
 (defun c:res () (load "acaddoc.lsp" nil))
