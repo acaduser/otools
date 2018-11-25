@@ -85,6 +85,7 @@
 (defun c:eb () (c:easyBlock))
 
 (defun c:ee () (c:easyExtend))
+(defun c:es () (c:easySlice))
 
 (defun c:ed () (c:extEditor))
 (defun c:xt () (c:exchangeText))
