@@ -1,14 +1,11 @@
 (defun c:attdefToText
 	(/
-		*error* main
-		oDoc obj
-		enameList owner pick name dist
+		*error* main oDoc obj
 	)
 	(defun main ()
 		(vl-load-com)
-		(princ "\nattdefToText")
+		(princ "\n😫attdefToText")
 		(setq oDoc (vla-get-ActiveDocument (vlax-get-acad-object)))
-		
 		(vla-StartUndoMark oDoc)
 		(if (setq ss (ssget '((0 . "ATTDEF"))))
 			(progn
@@ -17,10 +14,7 @@
 					(setq en (ssname ss i))
 					(setq obj (vlax-ename->vla-object en))
 					(setq text(vla-AddText (getspace oDoc)  (vla-get-TagString obj) (vlax-3d-point '(0 0 0)) (vla-get-Height obj)))
-					
-					
 					(vla-put-Alignment text (setq al (vla-get-Alignment obj)))
-					
 					(cond
 						((= al 0) 
 							(vla-put-InsertionPoint text (vla-get-InsertionPoint obj))
@@ -28,13 +22,13 @@
 						((= al 3)
 							(print al)
 							(vla-put-InsertionPoint text (vla-get-InsertionPoint obj))
-							(vla-put-textalignmentpoint text (vla-get-textalignmentpoint obj))
+							(vla-put-TextAlignmentPoint text (vla-get-TextAlignmentPoint obj))
 							(print al)
 						)
 						((= al 5)
 							(print al)
 							(vla-put-InsertionPoint text (vla-get-InsertionPoint obj))
-							(vla-put-textalignmentpoint text (vla-get-textalignmentpoint obj))
+							(vla-put-TextAlignmentPoint text (vla-get-TextAlignmentPoint obj))
 						)
 						(t
 							 (vla-put-TextAlignmentPoint text (vla-get-TextAlignmentPoint obj))
@@ -50,19 +44,16 @@
 					(vla-put-Rotation text (vla-get-Rotation obj))
 					(vla-put-ObliqueAngle text (vla-get-ObliqueAngle obj))
 					(vla-Delete obj)
-					
-					
 					(setq i (1+ i))
 				)
 			)
-		
 		)	
 		(vla-EndUndoMark oDoc)
 		(princ)
 	)
 	(defun getspace(d)
 		(if (and(= (vla-get-ActiveSpace d) 0)(= (vla-get-MSpace d) ':vlax-false))
-			(vla-get-Paperspace d)
+			(vla-get-PaperSpace d)
 			(vla-get-ModelSpace d)
 		)
 	)
