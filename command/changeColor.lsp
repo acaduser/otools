@@ -7,7 +7,7 @@
 	)
 	(defun main ()
 		(vl-load-com)
-		(princ "\nchangeColor")
+		(princ "\n🎨changeColor")
 		(setq doc (vla-get-ActiveDocument (vlax-get-acad-object)))
 		(vla-StartUndoMark doc)
 		(setvar "cmdecho" 0)
