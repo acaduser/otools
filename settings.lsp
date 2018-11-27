@@ -68,6 +68,16 @@
 (defun c:o () (command "_offset" "l" "s" "e" "n"))
 (defun c:oo () (command "_offset" "l" "c" "e" "n"))
 (defun c:ooo () (command "_offset" "l" "s" "e" "y"))
+(defun c:pj (/ *error* ss peditaccept)
+	(if (setq ss (ssget "_:L" '((0 . "LWPOLYLINE,LINE,ARC"))))
+		(progn
+			(setq peditaccept (getvar "peditaccept"))
+			(setvar "peditaccept" 1)
+			(command "._pedit" "m" ss "" "j" "" "")
+			(setvar "peditaccept" peditaccept)
+		)
+	)
+)
 ;;(defun c:ddf () (ai_draworder "f"))
 ;;(defun c:ddb () (ai_draworder "b"))
 
