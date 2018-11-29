@@ -53,21 +53,56 @@
 (defun c:b () (command "_break"))
 (defun c:c () (command "_copy"))
 (defun c:ca () (command "_laymcur"))
-(defun c:ga (/ *error* lname)
-	(if (setq lname (getstring "\nlname:"))(command "_.layer" "m" lname ""))
-	lname
-)
 (defun c:cb () (command "_copybase"))
-
 (defun c:cu () (command "_laycur"))
 (defun c:d () (command "_dist"))
 (defun c:et () (command "_extend"))
-(defun c:t () (command "_trim"))
+(defun c:jt () (command "_justifytext"))
 (defun c:n () (command "_matchprop"))
 (defun c:nn () (command "_matchprop"))
 (defun c:o () (command "_offset" "l" "s" "e" "n"))
 (defun c:oo () (command "_offset" "l" "c" "e" "n"))
 (defun c:ooo () (command "_offset" "l" "s" "e" "y"))
+(defun c:pua () (command "_.-purge" "_a" "*" "n"))
+(defun c:pub () (command "_.-purge" "_b" "*" "n"))
+(defun c:t () (command "_trim"))
+
+;;(defun c:ddf () (ai_draworder "f"))
+;;(defun c:ddb () (ai_draworder "b"))
+
+;;a-z
+(defun c:anb () (c:angBlock))
+(defun c:anh () (c:angHatch))
+(defun c:ant () (c:angText))
+(defun c:at () (c:alignmentText))
+(defun c:atot () (c:attdefToText))
+(defun c:bgc () (c:bgcCtrl))
+(defun c:cc () (c:stackCopy))
+(defun c:ccc () (c:stackCopy))
+(defun c:eb () (c:easyBlock))
+(defun c:ee () (c:easyExtend))
+(defun c:es () (c:easySlice))
+(defun c:ed () (c:extEditor))
+(defun c:ga (/ *error* lname)
+	(if (setq lname (getstring "\nlname:"))(command "_.layer" "m" lname ""))
+	lname
+)
+(defun c:gr () (c:changeLayer))
+(defun c:gc () (c:changeColor))
+(defun c:hm () (c:hatchMove))
+(defun c:mag (/ *error* ss pt1 pt2 pt3 pt4)
+	(if (setq ss (ssget "_:L"))
+		(progn
+			(initget 1)(setq pt1 (getpoint "\npt1:"))
+			(initget 1)(setq pt2 (getpoint pt1 "\npt2:"))
+			(initget 1)(setq pt3 (getpoint "\npt3:"))
+			(initget 1)(setq pt4 (getpoint pt3 "\npt4:"))
+			(command "._align" ss "" pt1 pt3 pt2 pt4 "" "")
+		)
+	)
+	(princ)
+)
+(defun c:para () (c:parallelogram))
 (defun c:pj (/ *error* ss peditaccept)
 	(if (setq ss (ssget "_:L" '((0 . "LWPOLYLINE,LINE,ARC"))))
 		(progn
@@ -78,30 +113,20 @@
 		)
 	)
 )
-;;(defun c:ddf () (ai_draworder "f"))
-;;(defun c:ddb () (ai_draworder "b"))
-
-(defun c:anb () (c:angBlock))
-(defun c:anh () (c:angHatch))
-(defun c:ant () (c:angText))
-
-(defun c:at () (c:alignmentText))
-
-(defun c:atot () (c:attdefToText))
-
-(defun c:bgc () (c:bgcCtrl))
-(defun c:hm () (c:hatchMove))
-
-(defun c:eb () (c:easyBlock))
-
-(defun c:ee () (c:easyExtend))
-(defun c:es () (c:easySlice))
-
-(defun c:ed () (c:extEditor))
+(defun c:srt () (c:srtObj))
+(defun c:tc () (c:copyTextStr))
 (defun c:xt () (c:exchangeText))
-(defun c:g () (c:grip))
-(defun c:gr () (c:changeLayer))
-(defun c:gc () (c:changeColor))
+
+;;layertable
+(defun c:rcss () (c:chBylayerColor))
+
+;;pviewport
+(defun c:ppn () (c:pviewportPan))
+(defun c:ptm () (c:pviewportToModel))
+(defun c:v () (c:pviewportLock))
+(defun c:vl () (c:pviewportLock))
+
+;;layer
 (defun c:ra () (c:layAllOn))
 (defun c:fa () (c:layAllOff))
 (defun c:rss () (c:laySSOn))
@@ -111,18 +136,8 @@
 (defun c:fs () (c:layPickNestOff))
 (defun c:fn () (c:layPickNestOff))
 (defun c:rev () (c:layRev))
-(defun c:cc () (c:stackCopy))
-(defun c:ccc () (c:stackCopy))
-(defun c:para () (c:parallelogram))
-(defun c:ppn () (c:pviewportPan))
-(defun c:ptm () (c:pviewportToModel))
-(defun c:v () (c:pviewportLock))
-(defun c:vl () (c:pviewportLock))
-(defun c:rcss () (c:chBylayerColor))
-(defun c:srt () (c:srtObj))
-(defun c:tc () (c:copyTextStr))
 
-
+;;filter
 (defun c:fb() (ssget '((0 . "INSERT"))))
 (defun c:fci() (ssget '((0 . "CIRCLE"))))
 (defun c:fd() (ssget '((0 . "DIMENSION"))))
@@ -134,7 +149,10 @@
 (defun c:fso() (ssget '((0 . "3DSOLID"))))
 (defun c:ft() (ssget '((0 . "TEXT"))))
 
+;;grip
+(defun c:g () (c:grip))
 
+;;startapp
 (defun c:calc () (startapp "calc"))
 (defun c:df() (startapp "explorer" (getvar "dwgprefix")))
 (defun c:tf() (startapp "explorer" (vl-filename-directory (vl-filename-mktemp))))
@@ -158,8 +176,5 @@
 (defun c:yy (/ *error*)
 	(if (setq pt (getpoint "\npt:"))(command "_.xline" "_non" pt "_non" "@0,1" ""))
 )
-
-(defun c:pua () (command "_.-purge" "_a" "*" "n"))
-(defun c:pub () (command "_.-purge" "_b" "*" "n"))
-
+;;restart
 (defun c:res () (load "acaddoc.lsp" nil))
