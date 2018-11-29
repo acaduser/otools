@@ -87,9 +87,15 @@
 	(if (setq lname (getstring "\nlname:"))(command "_.layer" "m" lname ""))
 	lname
 )
-(defun c:gr () (c:changeLayer))
 (defun c:gc () (c:changeColor))
+(defun c:gr () (c:changeLayer))
+(defun c:gt () (c:changeLinetype))
 (defun c:hm () (c:hatchMove))
+(defun c:llt ()
+	(command "linetype" "l" "JIS*" "acadiso.lin")
+	(while (= (getvar "cmdactive") 1) (command ""))
+	(princ)
+)
 (defun c:mag (/ *error* ss pt1 pt2 pt3 pt4)
 	(if (setq ss (ssget "_:L"))
 		(progn
