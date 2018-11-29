@@ -1,8 +1,7 @@
 (defun c:layAllOn(/ doc)
 	(vl-load-com)
-	(setq doc (vla-get-ActiveDocument (vlax-get-acad-object)))
 	(princ "\n💡")
-	(vla-StartUndoMark doc)
+	(vla-StartUndoMark (setq doc (vla-get-ActiveDocument (vlax-get-acad-object))))
 	(acet-layerp-mark t)
 	(vlax-for lay (vla-get-Layers doc)
 		(vla-put-LayerOn lay ':vlax-true)
@@ -13,8 +12,7 @@
 )
 (defun c:layAllOff(/ doc)
 	(vl-load-com)
-	(setq doc (vla-get-ActiveDocument (vlax-get-acad-object)))
-	(vla-StartUndoMark doc)
+	(vla-StartUndoMark (setq doc (vla-get-ActiveDocument (vlax-get-acad-object))))
 	(acet-layerp-mark t)
 	(vlax-for lay (vla-get-Layers doc)
 		(if (= (vla-get-Name lay) (getvar "clayer"))
@@ -26,45 +24,37 @@
 	(vla-EndUndoMark doc)
 	(princ)
 )
-(defun c:laySSON
-	(/
-		*error* main err
-		doc ename obj name oLayer
-	)
+(defun c:laySSON (/ *error* main doc)
+	(vl-load-com)
 	(defun main()
-		(vl-load-com)
-		(setq *error* (defun err(s)(princ s)(vla-EndUndoMark doc)(princ)))
-		(setq doc (vla-get-ActiveDocument (vlax-get-acad-object)))
-		(vla-StartUndoMark doc)
+		(vla-StartUndoMark (setq doc (vla-get-ActiveDocument (vlax-get-acad-object))))
 		(if (setq ss (ssget))
 			(progn
-				(setq ssList
+				(setq enames
 					(vl-remove-if-not
 						'(lambda(x)	(= (type x) 'ENAME))
 						(mapcar 'cadr (ssnamex ss))
 					)
 				)
-				(setq layerList
-					(unique(vl-sort (mapcar '(lambda(x) (cdr(assoc 8 (entget x)))) ssList) '<))
+				(setq names
+					(unique (vl-sort (mapcar '(lambda(x) (cdr(assoc 8 (entget x)))) enames) '<))
 				)
 				(acet-layerp-mark t)
-				(vlax-for oLayer(vla-get-Layers doc)
-					(setq name (vla-get-name oLayer))
-					(if (not(member name layerList))
-						(vla-put-LayerOn oLayer ':vlax-false)
+				(vlax-for lay (vla-get-Layers doc)
+					(setq name (vla-get-name lay))
+					(if (not(member name names))
+						(vla-put-LayerOn lay ':vlax-false)
 					)
 				)
-				(acet-layerp-mark nil)		
+				(acet-layerp-mark nil)
 				(if (< (cdr (assoc 62 (entget (tblobjname "layer" (getvar "clayer"))))) 0)
 					(progn
-						(setvar "clayer" (car layerlist))
-						(princ (strcat "\n現在の画層は " (car layerlist) " に設定されました。"))
+						(setvar "clayer" (car names))
+						(princ (strcat "\n現在の画層は " (car names) " に設定されました。"))
 					)
 				)
-				;;(print layerlist)
 			)
 		)
-		
 		(vla-EndUndoMark doc)
 		(princ)
 	)
@@ -77,34 +67,33 @@
 			(list(last lst))
 		)
 	)
-	(defun *error* (s)(princ s)(vla-EndUndoMark doc)(princ))
-	(apply 'main nil)
-)
-(defun c:laySSOff
-	(/
-		*error* main err
-		doc ename obj name oLayer
+	(defun *error* (s)
+		(princ s)
+		(vla-EndUndoMark doc)
+		(princ)
 	)
+	(main)
+)
+(defun c:laySSOff (/ *error* main doc)
+	(vl-load-com)
 	(defun main()
-		(vl-load-com)
-		(setq doc (vla-get-ActiveDocument (vlax-get-acad-object)))
-		(vla-StartUndoMark doc)
+		(vla-StartUndoMark (setq doc (vla-get-ActiveDocument (vlax-get-acad-object))))
 		(if (setq ss (ssget))
 			(progn
-				(setq ssList
+				(setq enames
 					(vl-remove-if-not
 						'(lambda(x)	(= (type x) 'ENAME))
 						(mapcar 'cadr (ssnamex ss))
 					)
 				)
 				(setq layerList
-					(unique(vl-sort (mapcar '(lambda(x) (cdr(assoc 8 (entget x)))) ssList) '<))
+					(unique (vl-sort (mapcar '(lambda(x) (cdr(assoc 8 (entget x)))) enames) '<))
 				)
 				(acet-layerp-mark t)
-				(vlax-for oLayer(vla-get-Layers doc)
-					(setq name (vla-get-name oLayer))
+				(vlax-for lay (vla-get-Layers doc)
+					(setq name (vla-get-name lay))
 					(if (member name layerList)
-						(vla-put-LayerOn oLayer ':vlax-false)
+						(vla-put-LayerOn lay ':vlax-false)
 					)
 				)
 				(acet-layerp-mark nil)
@@ -122,20 +111,18 @@
 			(list(last lst))
 		)
 	)
-	(defun *error* (s)(princ s)(vla-EndUndoMark doc)(princ))
-	(apply 'main nil)
-)
-(defun c:layPickNestOn
-	(/
-		*error* main
-		doc oLayer
-		enameList bname pick ename name
+	(defun *error* (s)
+		(princ s)
+		(vla-EndUndoMark doc)
+		(princ)
 	)
+	(main)
+)
+(defun c:layPickNestOn (/ *error* main doc)
+	(vl-load-com)
 	(defun main ()
-		(vl-load-com)
-		(setq doc (vla-get-ActiveDocument (vlax-get-acad-object)))
+		(vla-StartUndoMark (setq doc (vla-get-ActiveDocument (vlax-get-acad-object))))
 		(sssetfirst)
-		(vla-StartUndoMark doc)
 		(if (setq pick (nentsel "\nオブジェクト選択:"))
 			(progn
 				(setq ename (car pick))
@@ -160,10 +147,10 @@
 					)
 				)
 				(acet-layerp-mark t)
-				(vlax-for oLayer(vla-get-Layers doc)
-					(if (= (vla-get-name oLayer) name)
-						(vla-put-LayerOn oLayer ':vlax-true)
-						(vla-put-LayerOn oLayer ':vlax-false)
+				(vlax-for lay (vla-get-Layers doc)
+					(if (= (vla-get-name lay) name)
+						(vla-put-LayerOn lay ':vlax-true)
+						(vla-put-LayerOn lay ':vlax-false)
 					)
 				)
 				(acet-layerp-mark nil)
@@ -174,20 +161,17 @@
 		(princ)
 	)
 	(defun *error*(s)
-		(princ s)(vla-EndUndoMark doc)(princ)
+		(princ s)
+		(vla-EndUndoMark doc)
+		(princ)
 	)
-	(apply 'main nil)
+	(main)
 )
-(defun c:layPickNestOff
-	(/
-		*error* main doc
-		enameList owner pick name
-	)
+(defun c:layPickNestOff (/ *error* main doc)
+	(vl-load-com)
 	(defun main ()
-		(vl-load-com)
-		(setq doc (vla-get-ActiveDocument (vlax-get-acad-object)))
+		(vla-StartUndoMark (setq doc (vla-get-ActiveDocument (vlax-get-acad-object))))
 		(sssetfirst)
-		(vla-StartUndoMark doc)
 		(if (setq pick (nentsel "\nオブジェクト選択:"))
 			(progn
 				(setq enameList (last pick))
@@ -199,7 +183,7 @@
 				(if (= name "0")
 					(if (= (type (car enameList)) 'ENAME)
 						(progn
-							(setq owner
+							(setq bname
 								(car
 									(vl-remove-if
 										'(lambda(x)
@@ -209,16 +193,16 @@
 									)
 								)
 							)
-							(if owner
-								(setq name (cdr (assoc 8 (entget owner))))
+							(if bname
+								(setq name (cdr (assoc 8 (entget bname))))
 								(setq name "0")
 							)
 						)
 					)
 				)
 				(acet-layerp-mark t)
-				(vlax-for o (vla-get-Layers doc)
-					(if (= (vla-get-Name o) name) (vla-put-LayerOn o ':vlax-false))
+				(vlax-for lay (vla-get-Layers doc)
+					(if (= (vla-get-Name lay) name) (vla-put-LayerOn lay ':vlax-false))
 				)
 				(acet-layerp-mark nil)
 				(print name)
@@ -228,7 +212,9 @@
 		(princ)
 	)
 	(defun *error*(s)
-		(princ s)(vla-EndUndoMark doc)(princ)
+		(princ s)
+		(vla-EndUndoMark doc)
+		(princ)
 	)
-	(apply 'main nil)
+	(main)
 )
