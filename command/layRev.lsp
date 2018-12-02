@@ -1,11 +1,7 @@
-(defun c:layRev
-	(/
-		*error*	doc lay
-	)
+(defun c:layRev (/ *error* doc)
 	(vl-load-com)
-	(princ "\n画層表示状態反転")
-	(setq doc (vla-get-ActiveDocument (vlax-get-acad-object)))
-	(vla-StartUndoMark doc)
+	(princ "\nlayRev")
+	(vla-StartUndoMark (setq doc (vla-get-ActiveDocument (vlax-get-acad-object))))
 	(acet-layerp-mark t)
 	(vlax-for lay (vla-get-Layers doc)
 		(if (= (vla-get-LayerOn lay) ':vlax-true)
