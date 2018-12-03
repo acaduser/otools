@@ -47,6 +47,7 @@
 
 ;;システム変数　保存なし
 (setvar "bindtype" 1)
+(setvar "cmdecho" 1)
 (setvar "hpname" "SOLID")
 
 ;;短縮コマンド
@@ -84,6 +85,7 @@
 (defun c:es () (c:easySlice))
 (defun c:ed () (c:extEditor))
 (defun c:ga (/ *error* lname)
+	(setvar "cmdecho" 0)
 	(if (setq lname (getstring "\nlname:"))(command "_.layer" "m" lname ""))
 	lname
 )
@@ -92,7 +94,8 @@
 (defun c:gt () (c:changeLinetype))
 (defun c:hm () (c:hatchMove))
 (defun c:llt ()
-	(command "linetype" "l" "JIS*" "acadiso.lin")
+	(setvar "cmdecho" 1)
+	(command "_.linetype" "l" "JIS*" "acadiso.lin")
 	(while (= (getvar "cmdactive") 1) (command ""))
 	(princ)
 )
@@ -110,6 +113,7 @@
 )
 (defun c:para () (c:parallelogram))
 (defun c:pj (/ *error* ss peditaccept)
+	(setvar "cmdecho" 0)
 	(if (setq ss (ssget "_:L" '((0 . "LWPOLYLINE,LINE,ARC"))))
 		(progn
 			(setq peditaccept (getvar "peditaccept"))
@@ -161,7 +165,7 @@
 ;;startapp
 (defun c:calc () (startapp "calc"))
 (defun c:df() (startapp "explorer" (getvar "dwgprefix")))
-(defun c:tf() (startapp "explorer" (vl-filename-directory (vl-filename-mktemp))))
+(defun c:tf() (startapp "explorer" (getvar "tempprefix")))
 
 ;;hojo line
 (defun c:rayU (/ *error*)
