@@ -5,7 +5,7 @@
 	(if (setq str (utf8loader-Decode str))
 		(progn
 			;;(eval (read (strcat "(progn\n" str "\n)" )))
-			(setq temp (strcat (vl-filename-directory (vl-filename-mktemp)) "\\" (vl-filename-base fn) ".lsp"))
+			(setq temp (strcat (getvar "tempprefix") (vl-filename-base fn) ".lsp"))
 			(utf8loader-write str temp)
 			(load temp nil)
 		)
@@ -21,7 +21,7 @@
 	(setq str (utf8loader-readall fn))
 	(if (setq str (utf8loader-decode str))
 		(progn
-			(setq temp (strcat (vl-filename-directory (vl-filename-mktemp)) "\\" (vl-filename-base fn) ".dcl"))
+			(setq temp (strcat (getvar "tempprefix") (vl-filename-base fn) ".dcl"))
 			(utf8loader-write str temp)
 			(load_dialog temp)
 		)
