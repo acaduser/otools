@@ -1,12 +1,8 @@
-(defun c:angText
-	(/ *error* main
-		doc ss pt1 pt2 pt1w pt2w i obj
-	)
+(defun c:angText (/ *error* main doc)
+	(vl-load-com)
 	(defun main()
-		(vl-load-com)
 		(princ "\nangText")
-		(setq doc (vla-get-ActiveDocument (vlax-get-acad-object)))
-		(vla-StartUndoMark doc)
+		(vla-StartUndoMark (setq doc (vla-get-ActiveDocument (vlax-get-acad-object))))
 		(if (setq ss (ssget "_:L" '((0 . "TEXT"))))
 			(progn
 				(initget 1)

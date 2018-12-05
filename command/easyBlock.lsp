@@ -1,4 +1,4 @@
-(defun c:easyBlock (/ *error* main doc ss pt)
+(defun c:easyBlock (/ *error* main doc)
 	(vl-load-com)
 	(defun main()
 		(vla-StartUndoMark (setq doc (vla-get-ActiveDocument (vlax-get-acad-object))))

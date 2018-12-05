@@ -1,5 +1,5 @@
 (vl-load-com)
-;;システム変数　レジストリ
+;;setvar reg
 (setvar "coords" 2)
 (setvar "cursorsize" 100)
 (setvar "filedia" 1)
@@ -19,15 +19,15 @@
 (vl-catch-all-apply 'setvar '("dtexted" 1))
 (vl-catch-all-apply 'setvar '("texted" 1))
 (vl-catch-all-apply 'setvar '("osoptions" 0))
-(vl-catch-all-apply 'setvar '("dynmode" 1));IME bug
+(vl-catch-all-apply 'setvar '("dynmode" 1))
 (vl-catch-all-apply 'setvar '("layerdlgmode" 0))
-(vl-catch-all-apply 'setvar '("dynpicoords" 1)) ;絶対座標
+(vl-catch-all-apply 'setvar '("dynpicoords" 1))
 (vl-catch-all-apply 'setvar '("hqgeom" 0))
 (vl-catch-all-apply 'setvar '("linesmoothing" 0))
 (vl-catch-all-apply 'setvar '("rollovertips" 0))
 (vl-catch-all-apply 'setvar '("gripmultifunctional" 1))
 
-;;システム変数　図面
+;;setvar dwg
 (setvar "sortents" 127)
 (setvar "dimassoc" 1)
 (setvar "filletrad" 0)
@@ -42,15 +42,15 @@
 (vl-catch-all-apply 'setvar '("draworderctl" 1))
 (vl-catch-all-apply 'setvar '("layernotify" 0))
 
-;;システム変数　ユーザー設定
+;;setvar user
 (vl-catch-all-apply 'setvar '("hpdlgmode" 1)) 
 
-;;システム変数　保存なし
+;;setvar not-saved
 (setvar "bindtype" 1)
 (setvar "cmdecho" 1)
 (setvar "hpname" "SOLID")
 
-;;短縮コマンド
+;;command
 (defun c:b () (command "_break"))
 (defun c:c () (command "_copy"))
 (defun c:ca () (command "_laymcur"))
@@ -72,6 +72,18 @@
 ;;(defun c:ddb () (ai_draworder "b"))
 
 ;;a-z
+(defun c:ag (/ *error* ss pt1 pt2 pt3 pt4)
+	(if (setq ss (ssget "_:L"))
+		(progn
+			(initget 1)(setq pt1 (getpoint "\npt1:"))
+			(initget 1)(setq pt2 (getpoint pt1 "\npt2:"))
+			(initget 1)(setq pt3 (getpoint "\npt3:"))
+			(initget 1)(setq pt4 (getpoint pt3 "\npt4:"))
+			(command "._align" ss "" "_non" pt1 "_non" pt3 "_non" pt2 "_non" pt4 "" "")
+		)
+	)
+	(princ)
+)
 (defun c:anb () (c:angBlock))
 (defun c:anh () (c:angHatch))
 (defun c:ant () (c:angText))
@@ -97,18 +109,6 @@
 	(setvar "cmdecho" 1)
 	(command "_.linetype" "l" "JIS*" "acadiso.lin")
 	(while (= (getvar "cmdactive") 1) (command ""))
-	(princ)
-)
-(defun c:mag (/ *error* ss pt1 pt2 pt3 pt4)
-	(if (setq ss (ssget "_:L"))
-		(progn
-			(initget 1)(setq pt1 (getpoint "\npt1:"))
-			(initget 1)(setq pt2 (getpoint pt1 "\npt2:"))
-			(initget 1)(setq pt3 (getpoint "\npt3:"))
-			(initget 1)(setq pt4 (getpoint pt3 "\npt4:"))
-			(command "._align" ss "" pt1 pt3 pt2 pt4 "" "")
-		)
-	)
 	(princ)
 )
 (defun c:para () (c:parallelogram))

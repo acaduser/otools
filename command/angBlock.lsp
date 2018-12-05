@@ -1,12 +1,8 @@
-(defun c:angBlock
-	(/ *error* main
-		doc ss pt1 pt2 pt1w pt2w i obj
-	)
+(defun c:angBlock (/ *error* main doc ss)
+	(vl-load-com)
 	(defun main()
-		(vl-load-com)
 		(princ "\nangBlock")
-		(setq doc (vla-get-ActiveDocument (vlax-get-acad-object)))
-		(vla-StartUndoMark doc)
+		(vla-StartUndoMark (setq doc (vla-get-ActiveDocument (vlax-get-acad-object))))
 		(if (setq ss (ssget "_:L" '((0 . "INSERT"))))
 			(progn
 				(initget 1)

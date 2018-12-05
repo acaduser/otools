@@ -1,12 +1,8 @@
-(defun c:parallelogram
-	(/
-		*error* main line ucsChanged
-	)
+(defun c:parallelogram (/ *error* main line ucsChanged)
+	(vl-load-com)
 	(defun main()
-		(vl-load-com)
-		(princ "\n平行四辺形")
-		(setq doc (vla-get-ActiveDocument (vlax-get-acad-object)))
-		(vla-StartUndoMark doc)
+		(princ "\nparallelogram")
+		(vla-StartUndoMark (setq doc (vla-get-ActiveDocument (vlax-get-acad-object))))
 		(setq spc (getspace doc))
 		(setvar "cmdecho" 0)
 		(initget 1)
@@ -47,5 +43,5 @@
 		(princ s)
 		(princ)
 	)
-	(apply 'main nil)
+	(main)
 )
