@@ -1,21 +1,12 @@
-(defun c:changeLinetype
-	(/
-		*error* main
-		colorDlg entityData
-		modifyIndex modifyTrueColor modifyColorBook
-		split enList
-		oDoc enames 
-		ss pick i
-	)
+(defun c:changeLinetype (/ *error* main doc enames ss pick i)
+	(vl-load-com)
 	(defun main()
-		(vl-load-com)
 		(princ "\n✍changeLinetype")
-		(setq oDoc (vla-get-ActiveDocument (vlax-get-acad-object)))
-		(vla-StartUndoMark oDoc)
+		(vla-StartUndoMark (setq doc (vla-get-ActiveDocument (vlax-get-acad-object))))
 		(if (setq ss (ssget "_:L"))
 			(progn
 				(setq i 0)
-				(repeat (sslength ss)	(setq enames (cons (ssname ss i) enames) i (1+ i)))
+				(repeat (sslength ss) (setq enames (cons (ssname ss i) enames) i (1+ i)))
 				(reverse enames)
 				(mapcar '(lambda(x) (redraw x 3)) enames)
 				(initget " ")
@@ -23,31 +14,28 @@
 				(cond
 					((= (type pick) 'LIST)
 						(setq data (entget (car pick)))
-						(if(setq name (cdr (assoc 6 data)))
-								(modifyName ss name)
-								(modifyName ss "ByLayer")
+						(if (setq name (cdr (assoc 6 data)))
+							(modifyName ss name)
+							(modifyName ss "ByLayer")
 						)
 					)
 					((= pick "") 
 						(setq res (lineTypeDlg "ByLayer" t))
 						(if res (modifyName ss res))
 					)
-					((null pick)(mapcar '(lambda(x) (redraw x 4)) enames))
+					((null pick)
+					)
 				)
 			)
 		)
-		(vla-EndUndoMark oDoc)
+		(if enames (mapcar '(lambda(x) (redraw x 4)) enames))
+		(vla-EndUndoMark doc)
 		(princ)
 	)
-	(defun lineTypeDlg(lineType flag / names num id tbl res)
+	(defun lineTypeDlg (lineType flag / names num id tbl res)
 		(setq lineType (strcase lineType))
-		(while
-			(not
-				(setq dsc (open (setq tempDcl (strcat  (getvar "tempprefix") "changeLineType.dcl")) "W"))
-			)
-		)
+		(setq dsc (open (setq tempDcl (strcat  (getvar "tempprefix") "changeLinetype.dcl")) "w"))
 		(write-line
-			
 "lineTypeDlg : dialog {
 	label = \"✍線種選択\";
 	: column {
@@ -60,7 +48,6 @@
 	ok_cancel;
 	}
 }"
-
 			dsc
 		)
 		(close dsc)
@@ -71,7 +58,10 @@
 				(action_tile "listbox" "(setq num $value)")
 				(if flag (setq names (list "ByLayer" "Byblock")))
 				(while (if (null tbl) (setq tbl (tblnext "LTYPE" t)) (setq tbl (tblnext "LTYPE")))
-						(setq names (cons (cdr (assoc 2 tbl)) names))
+					(setq name (cdr (assoc 2 tbl)))
+					(if (wcmatch name "~*|*")
+						(setq names (cons name names))
+					)
 				)
 				(setq names (vl-sort names '<))
 				(start_list "listbox")
@@ -86,20 +76,17 @@
 				(unload_dialog id)
 			)
 		)
-		;;(vl-file-delete tempDcl)
-		(if (/= res 0)(nth (atoi num) names))
+		(if (/= res 0) (nth (atoi num) names))
 	)
 	(defun modifyName(ss e / )
-		
-		
 		(command "_.chprop" ss "" "lt" e "")
-		
 		(princ (strcat "\n" e))
 	)
 	(defun *error*(s)
 		(mapcar '(lambda(x) (redraw x 4)) enames)
-		(vla-EndUndoMark oDoc)
 		(princ s)
+		(vla-EndUndoMark doc)
+		(princ)
 	)
-	(apply 'main nil)
+	(main)
 )
