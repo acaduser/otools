@@ -115,6 +115,7 @@
 	(while (= (getvar "cmdactive") 1) (command ""))
 	(princ)
 )
+(defun c:mm () (c:stepMove))
 (defun c:para () (c:parallelogram))
 (defun c:pj (/ *error* ss peditaccept)
 	(setvar "cmdecho" 0)
