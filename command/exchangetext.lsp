@@ -1,15 +1,8 @@
-(defun c:exchangeText
-	(/
-		*error* main
-		getObject exchange recovery
-		doc
-		obj1 obj2
-	)
+(defun c:exchangeText (/ *error* main doc getObject exchange obj1 obj2)
+	(vl-load-com)
 	(defun main()
-		(vl-load-com)
-		(princ "\n文字内容交換")
-		(setq doc (vla-get-ActiveDocument (vlax-get-acad-object)))
-		(vla-StartUndoMark doc)
+		(princ "\nexchangeText")
+		(vla-StartUndoMark (setq doc (vla-get-ActiveDocument (vlax-get-acad-object))))
 		(if
 			(and
 				(setq obj1 (getObject (entsel "\n交換元文字選択:")))
@@ -50,13 +43,11 @@
 		(vla-put-TextString a (vla-get-TextString b))
 		(vla-put-TextString b tmp)
 	)
-	
 	(defun *error* (s)
 		(princ s)
 		(if obj1 (vla-Update obj1))
 		(if obj2 (vla-Update obj2))
 		(vla-EndUndoMark doc)
 	)
-
-	(apply 'main nil)
+	(main)
 )

@@ -15,7 +15,7 @@
 	(vla-StartUndoMark (setq doc (vla-get-ActiveDocument (vlax-get-acad-object))))
 	(acet-layerp-mark t)
 	(vlax-for lay (vla-get-Layers doc)
-		(if (= (vla-get-Name lay) (getvar "clayer"))
+		(if (= (cdr (assoc 2 (entget (vlax-vla-object->ename lay)))) (getvar "clayer"))
 			(vla-put-LayerOn lay ':vlax-true)
 			(vla-put-LayerOn lay ':vlax-false)
 		)
@@ -30,19 +30,14 @@
 		(vla-StartUndoMark (setq doc (vla-get-ActiveDocument (vlax-get-acad-object))))
 		(if (setq ss (ssget))
 			(progn
-				(setq enames
-					(vl-remove-if-not
-						'(lambda(x)	(= (type x) 'ENAME))
-						(mapcar 'cadr (ssnamex ss))
-					)
-				)
+				(setq enames (ss->enames ss))
 				(setq names
 					(unique (vl-sort (mapcar '(lambda(x) (cdr(assoc 8 (entget x)))) enames) '<))
 				)
 				(acet-layerp-mark t)
 				(vlax-for lay (vla-get-Layers doc)
-					(setq name (vla-get-name lay))
-					(if (not(member name names))
+					(setq name (cdr (assoc 2 (entget (vlax-vla-object->ename lay)))))
+					(if (not (member name names))
 						(vla-put-LayerOn lay ':vlax-false)
 					)
 				)
@@ -58,14 +53,14 @@
 		(vla-EndUndoMark doc)
 		(princ)
 	)
-	(defun unique(lst)
-		(append
-			(apply
-				'append
-				(mapcar '(lambda(c d)(if(/= c d)(list c))) lst (cdr lst))
-			)
-			(list(last lst))
-		)
+	(defun ss->enames (ss / tmp i)
+		(setq i 0)
+		(repeat (sslength ss) (setq tmp (cons (ssname ss i) tmp) i (1+ i)))
+		(reverse tmp)
+	)
+	(defun unique(lst / tmp)
+		(mapcar '(lambda(a b) (if (/= a b) (setq tmp (cons a tmp)))) lst (cdr lst))
+		(reverse (cons (last lst) tmp))
 	)
 	(defun *error* (s)
 		(princ s)
@@ -80,19 +75,14 @@
 		(vla-StartUndoMark (setq doc (vla-get-ActiveDocument (vlax-get-acad-object))))
 		(if (setq ss (ssget))
 			(progn
-				(setq enames
-					(vl-remove-if-not
-						'(lambda(x)	(= (type x) 'ENAME))
-						(mapcar 'cadr (ssnamex ss))
-					)
-				)
-				(setq layerList
+				(setq enames (ss->enames ss))
+				(setq names
 					(unique (vl-sort (mapcar '(lambda(x) (cdr(assoc 8 (entget x)))) enames) '<))
 				)
 				(acet-layerp-mark t)
 				(vlax-for lay (vla-get-Layers doc)
-					(setq name (vla-get-name lay))
-					(if (member name layerList)
+					(setq name (cdr (assoc 2 (entget (vlax-vla-object->ename lay)))))
+					(if (member name names)
 						(vla-put-LayerOn lay ':vlax-false)
 					)
 				)
@@ -102,14 +92,14 @@
 		(vla-EndUndoMark doc)
 		(princ)
 	)
-	(defun unique(lst)
-		(append
-			(apply
-				'append
-				(mapcar '(lambda(c d)(if(/= c d)(list c))) lst (cdr lst))
-			)
-			(list(last lst))
-		)
+	(defun ss->enames (ss / tmp i)
+		(setq i 0)
+		(repeat (sslength ss) (setq tmp (cons (ssname ss i) tmp) i (1+ i)))
+		(reverse tmp)
+	)
+	(defun unique(lst / tmp)
+		(mapcar '(lambda(a b) (if (/= a b) (setq tmp (cons a tmp)))) lst (cdr lst))
+		(reverse (cons (last lst) tmp))
 	)
 	(defun *error* (s)
 		(princ s)
@@ -125,9 +115,12 @@
 		(sssetfirst)
 		(if (setq pick (nentsel "\nオブジェクト選択:"))
 			(progn
-				(setq ename (car pick))
 				(setq enameList (last pick))
-				(setq name (cdr (assoc 8 (entget ename))))
+				(setq obj (vlax-ename->vla-object (car pick)))
+				(setq name (cdr (assoc 8 (entget (car pick)))))
+				(if (and (= name "0") (= (vla-get-ObjectName obj) "AcDbAttribute"))
+					(setq name (cdr (assoc 8 (entget (vlax-vla-object->ename (vla-ObjectIDToObject doc (vla-get-OwnerID obj)))))))
+				)
 				(if (and (= name "0") (= (type (car enameList)) 'ENAME))
 					(progn
 						(setq bname
@@ -148,7 +141,7 @@
 				)
 				(acet-layerp-mark t)
 				(vlax-for lay (vla-get-Layers doc)
-					(if (= (vla-get-name lay) name)
+					(if (= (cdr (assoc 2 (entget (vlax-vla-object->ename lay)))) name)
 						(vla-put-LayerOn lay ':vlax-true)
 						(vla-put-LayerOn lay ':vlax-false)
 					)
@@ -176,33 +169,33 @@
 			(progn
 				(setq enameList (last pick))
 				(setq obj (vlax-ename->vla-object (car pick)))
-				(setq name (vla-get-Layer obj))
+				(setq name (cdr (assoc 8 (entget (car pick)))))
 				(if (and (= name "0") (= (vla-get-ObjectName obj) "AcDbAttribute"))
-					(setq name (vla-get-Layer (vla-ObjectIDToObject doc (vla-get-OwnerID obj))))
+					(setq name (cdr (assoc 8 (entget (vlax-vla-object->ename (vla-ObjectIDToObject doc (vla-get-OwnerID obj)))))))
 				)
-				(if (= name "0")
-					(if (= (type (car enameList)) 'ENAME)
-						(progn
-							(setq bname
-								(car
-									(vl-remove-if
-										'(lambda(x)
-											(= (cdr (assoc 8 (entget x))) "0")
-										)
-										enameList
+				(if (and (= name "0") (= (type (car enameList)) 'ENAME))
+					(progn
+						(setq bname
+							(car
+								(vl-remove-if
+									'(lambda(x)
+										(= (cdr (assoc 8 (entget x))) "0")
 									)
+									enameList
 								)
 							)
-							(if bname
-								(setq name (cdr (assoc 8 (entget bname))))
-								(setq name "0")
-							)
+						)
+						(if bname
+							(setq name (cdr (assoc 8 (entget bname))))
+							(setq name "0")
 						)
 					)
 				)
 				(acet-layerp-mark t)
 				(vlax-for lay (vla-get-Layers doc)
-					(if (= (vla-get-Name lay) name) (vla-put-LayerOn lay ':vlax-false))
+					(if (= (cdr (assoc 2 (entget (vlax-vla-object->ename lay)))) name)
+						(vla-put-LayerOn lay ':vlax-false)
+					)
 				)
 				(acet-layerp-mark nil)
 				(print name)
