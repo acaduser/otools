@@ -1,5 +1,6 @@
 (vl-load-com)
 ;;setvar reg
+(vl-catch-all-apply 'setvar '("commandpreview" 0))
 (setvar "coords" 2)
 (setvar "cursorsize" 100)
 (setvar "filedia" 1)
@@ -13,6 +14,7 @@
 (vl-catch-all-apply 'setvar '("vtenable" 0))
 (vl-catch-all-apply 'setvar '("zoomfactor" 70))
 (vl-catch-all-apply 'setvar '("selectioncycling" 0))
+(vl-catch-all-apply 'setvar '("selectioneffect" 0))
 (vl-catch-all-apply 'setvar '("selectionpreview" 0))
 (vl-catch-all-apply 'setvar '("selectionarea" 0))
 (vl-catch-all-apply 'setvar '("secureload" 0))
@@ -26,6 +28,8 @@
 (vl-catch-all-apply 'setvar '("linesmoothing" 0))
 (vl-catch-all-apply 'setvar '("rollovertips" 0))
 (vl-catch-all-apply 'setvar '("gripmultifunctional" 1))
+(vl-catch-all-apply 'setvar '("texteditmode" 1))
+(vl-catch-all-apply 'setvar '("xdwgfadectl" 0))
 
 ;;setvar dwg
 (setvar "sortents" 127)
