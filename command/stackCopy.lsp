@@ -1,6 +1,6 @@
 (defun c:stackCopy
 	(/
-		*error* main crdr ss->enames
+		*error* main ss->enames
 		OnMouseClicked OnMouseMoved OnKeyPress add del
 		doc ss ang pt1 pt2 objects loop baseSa pitch
 		num newNum cmdecho saList
@@ -9,13 +9,12 @@
 	(vl-load-com)
 	(defun main()
 		(princ "\nstackCopy")
-		(setq doc (vla-get-ActiveDocument (vlax-get-acad-object)))
-		(vla-StartUndoMark doc)
+		(vla-StartUndoMark (setq doc (vla-get-ActiveDocument (vlax-get-acad-object))))
 		(setq cmdecho (getvar "cmdecho"))
 		(setvar "cmdecho" 0)
 		(if (setq ss (ssget "_:L"))
 			(progn
-				(setq objects(reverse (mapcar 'vlax-ename->vla-object (ss->enames ss))))
+				(setq objects (reverse (mapcar 'vlax-ename->vla-object (ss->enames ss))))
 				(initget 1)
 				(setq pt1u (getpoint "\n基準点を指示:"))
 				(setq loop t)
@@ -23,14 +22,16 @@
 					(initget 1)
 					(setq pt2u  (getpoint pt1u  "\n目的点を指示:"))
 					(setq pitch (distance pt1u pt2u))
-					(if (not(zerop pitch))(setq loop nil))
+					(if (not (zerop pitch)) (setq loop nil))
 				)
 				(setq pt1 (trans pt1u 1 0))
 				(setq pt2 (trans pt2u 1 0))
-				
-				
-				(command "_ucs" "_3p" "_non" pt1u "_non" pt2u "")
-				(setq UcsIsChanged t)
+				(if (= (getvar "blockeditor") 0)
+					(progn
+						(command "_ucs" "_3p" "_non" pt1u "_non" pt2u "")
+						(setq UcsIsChanged t)
+					)
+				)
 				(setq ucsicon (getvar "ucsicon"))
 				(setvar "ucsicon" 0)
 				(setq ang (angle pt1 pt2))
@@ -144,9 +145,6 @@
 			(list 0.0 0.0 1.0 (caddr v))
 			(list 0.0 0.0 0.0 1.0      )
 		)
-	)
-	(defun crdr(lst)
-		(reverse (cdr (reverse lst)))
 	)
 	(defun ss->enames (ss / tmp i)
 		(setq i 0)
