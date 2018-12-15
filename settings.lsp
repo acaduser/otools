@@ -68,8 +68,10 @@
 (defun c:o () (command "_offset" "l" "s" "e" "n"))
 (defun c:oo () (command "_offset" "l" "c" "e" "n"))
 (defun c:ooo () (command "_offset" "l" "s" "e" "y"))
+(defun c:pb () (command "_.pasteblock"))
 (defun c:pua () (command "_.-purge" "_a" "*" "n"))
 (defun c:pub () (command "_.-purge" "_b" "*" "n"))
+(defun c:rp () (command "_.layerp"))
 (defun c:t () (command "_trim"))
 
 ;;(defun c:ddf () (ai_draworder "f"))
