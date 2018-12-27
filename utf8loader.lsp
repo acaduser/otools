@@ -200,14 +200,14 @@
 			(if (eval sym)
 				(eval(append (list sym) (cdr (read s))))
 				(progn
-					(princ (strcat "\n" (vl-symbol-name(car (read s))) " is not defined in file."))
+					(princ (strcat "\n" (vl-symbol-name(car (read s))) " is not defined in \"" f "\"."))
 					(set sym surb)
 					(princ)
 				)
 			)
 		)
 		(progn
-			(princ (strcat "\n" f " have not in support pass."))
+			(princ (strcat "\n\"" f "\" is not found."))
 			(set sym surb)
 			(princ)
 		)
