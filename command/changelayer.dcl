@@ -1,6 +1,7 @@
 lineTypeDlg : dialog
 {
 	label = "🌈changeLayer";
+	initial_focus = "listbox";
 	: column
 	{
 		: list_box
@@ -16,7 +17,6 @@ lineTypeDlg : dialog
 			{
 				label = "画層名指定";
 				key = "userInput";
-
 			}
 			: edit_box
 			{
