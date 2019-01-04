@@ -311,7 +311,8 @@ UTF-8を想定しファイルをデコードしロードする。
 	
 
 -------
-
+## setScaleFactor.lsp
+-------
 
 ## srtObj.lsp
 

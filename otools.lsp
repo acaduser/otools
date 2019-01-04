@@ -29,6 +29,7 @@
 (utf8demandload "pviewportPan.lsp" '(c:pviewportPan))
 (utf8demandload "pviewportLock.lsp" '(c:pviewportLock))
 (utf8demandload "pviewporttoModel.lsp" '(c:pviewportToModel))
+(utf8demandload "setScaleFactor.lsp" '(c:setScaleFactor))
 (utf8demandload "srtObj.lsp" '(c:srtObj))
 (utf8demandLoad "stackCopy.lsp" '(c:stackcopy))
 (utf8demandLoad "stepMove.lsp" '(c:stepMove))

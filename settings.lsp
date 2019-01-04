@@ -71,11 +71,8 @@
 (defun c:pb () (command "_.pasteblock"))
 (defun c:pua () (command "_.-purge" "_a" "*" "n"))
 (defun c:pub () (command "_.-purge" "_b" "*" "n"))
-(defun c:rp () (command "_.layerp"))
+(defun c:rr () (command "_.layerp"))
 (defun c:t () (command "_trim"))
-
-;;(defun c:ddf () (ai_draworder "f"))
-;;(defun c:ddb () (ai_draworder "b"))
 
 ;;a-z
 (defun c:ag (/ *error* ss pt1 pt2 pt3 pt4)
@@ -130,6 +127,7 @@
 		)
 	)
 )
+(defun c:sf () (c:setScaleFactor))
 (defun c:srt () (c:srtObj))
 (defun c:tc () (c:copyTextStr))
 (defun c:xt () (c:exchangeText))
