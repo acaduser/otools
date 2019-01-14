@@ -32,6 +32,7 @@
 (vl-catch-all-apply 'setvar '("xdwgfadectl" 0))
 
 ;;setvar dwg
+(setvar "gridmode" 0)
 (setvar "sortents" 127)
 (setvar "dimassoc" 1)
 (setvar "filletrad" 0)
