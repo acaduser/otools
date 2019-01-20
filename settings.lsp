@@ -133,6 +133,12 @@
 (defun c:tc () (c:copyTextStr))
 (defun c:xt () (c:exchangeText))
 
+;;draworder
+(defun c:dda () (c:draworderAuto))
+(defun c:ddd () (c:draworderLayer))
+(defun c:ddb () (c:draworderLayer_args "B"))
+(defun c:ddf () (c:draworderLayer_args "F"))
+
 ;;layertable
 (defun c:rcss () (c:chBylayerColor))
 
@@ -166,6 +172,7 @@
 (defun c:ft() (ssget '((0 . "TEXT"))))
 
 ;;grip
+(defun c:cg () (c:copyGrip))
 (defun c:g () (c:grip))
 
 ;;startapp
@@ -191,6 +198,11 @@
 )
 (defun c:yy (/ *error*)
 	(if (setq pt (getpoint "\npt:"))(command "_.xline" "_non" pt "_non" "@0,1" ""))
+)
+(defun c:xy (/ *error*)
+	(if (setq pt (getpoint "\npt:"))
+		(command "_.xline" "_non" pt "_non" "@1,0" "_non" "@0,1" "")
+	)
 )
 ;;restart
 (defun c:res () (load "acaddoc.lsp" nil))

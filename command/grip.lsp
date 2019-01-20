@@ -1,9 +1,26 @@
-(defun c:grip(/	ss )
+(defun c:grip (/	ss )
 	(or
 		(setq ss (cadr (ssgetfirst)))
 		(setq ss (ssget))
-		(setq ss (ssget "p"))
+		(setq ss (ssget "_p"))
 	)
 	(sssetfirst nil ss)
+	(princ)
+)
+(defun c:copyGrip (/ ss)
+	(if (cadr (ssgetfirst))
+		(progn
+			(princ "\nnot copied.")
+		)
+		(progn
+			(if (setq ss (ssget "_:L"))
+				(progn
+					(command "_.copy" ss "" "0,0" "@0,0")
+					(sssetfirst nil ss)
+					(print ss)
+				)
+			)
+		)
+	)
 	(princ)
 )
