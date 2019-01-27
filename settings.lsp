@@ -74,7 +74,22 @@
 (defun c:pub () (command "_.-purge" "_b" "*" "n"))
 (defun c:rr () (command "_.layerp"))
 (defun c:t () (command "_trim"))
-
+;;wrapper command
+(defun c:myMove (/ *error* osmode)
+	(defun *error*(s) (setvar "osmode" osmode) (princ))
+	(setq osmode (getvar "osmode"))
+	(if (setq ss (ssget "_:L"))
+		(progn
+			(setq per (logand osmode 128))
+			(setvar "osmode" (- osmode per))
+			(initget 1)
+			(setq res (getpoint "\nbase point:"))
+			(setvar "osmode" osmode)
+			(command "_.move" ss "" "_non" res)
+		)
+	)	
+	(princ)
+)
 ;;a-z
 (defun c:ag (/ *error* ss pt1 pt2 pt3 pt4)
 	(if (setq ss (ssget "_:L"))
@@ -115,6 +130,7 @@
 	(while (= (getvar "cmdactive") 1) (command ""))
 	(princ)
 )
+(defun c:m () (c:myMove))
 (defun c:mm () (c:stepMove))
 (defun c:para () (c:parallelogram))
 (defun c:pj (/ *error* ss peditaccept)
