@@ -139,7 +139,6 @@
 	(while (= (getvar "cmdactive") 1) (command ""))
 	(princ)
 )
-(defun c:m () (c:myMove))
 (defun c:mm () (c:stepMove))
 (defun c:para () (c:parallelogram))
 (defun c:pj (/ *error* ss peditaccept)
