@@ -153,6 +153,7 @@
 		)
 	)
 )
+(defun c:scv () (c:verticalscale))
 (defun c:sf () (c:setScaleFactor))
 (defun c:srt () (c:srtObj))
 (defun c:tc () (c:copyTextStr))
