@@ -121,7 +121,7 @@
 (defun c:cc () (c:stepCopy))
 (defun c:ccc () (c:stackCopy))
 (defun c:cm (/ *error*)
-	(defun *error*(s)(command)(princ))
+	(defun *error*(s)(command-s)(princ))
 	(if (setq ss (ssget "_:L"))
 		(progn
 			(command "copy" ss "" pause "non" (getvar "lastpoint"))
@@ -130,7 +130,7 @@
 	)
 )
 (defun c:cmr (/ *error*)
-	(defun *error*(s)(command)(princ))
+	(defun *error*(s)(command-s)(princ))
 	(if (setq ss (ssget "_:L"))
 		(progn
 			(command "copy" ss "" pause "non" (getvar "lastpoint"))
