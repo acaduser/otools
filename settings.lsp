@@ -60,6 +60,7 @@
 (defun c:c () (command "_copy"))
 (defun c:ca () (command "_laymcur"))
 (defun c:cb () (command "_copybase"))
+(defun c:ctl () (initcommandversion)(command "_copytolayer"))
 (defun c:cu () (command "_laycur"))
 (defun c:d () (command "_dist"))
 (defun c:et () (command "_extend"))
