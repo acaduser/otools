@@ -30,6 +30,7 @@
 		(utf8demandload "laystdctr.lsp" '(c:laySSOff))
 		(utf8demandload "laystdctr.lsp" '(c:layPickNestOn))
 		(utf8demandload "laystdctr.lsp" '(c:layPickNestOff))
+		(utf8demandload "linkScale.lsp" '(c:linkScale))
 		(utf8demandload "parallelogram.lsp" '(c:parallelogram))
 		(utf8demandload "pviewportPan.lsp" '(c:pviewportPan))
 		(utf8demandload "pviewportLock.lsp" '(c:pviewportLock))
