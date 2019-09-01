@@ -193,6 +193,7 @@
 )
 (defun c:srt () (c:srtObj))
 (defun c:tc () (c:copyTextStr))
+(defun c:tt () (c:textEditAd))
 (defun c:xt () (c:exchangeText))
 
 ;;draworder
