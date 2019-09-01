@@ -16,6 +16,7 @@
 		(utf8demandload "chBylayerColor.lsp" '(c:chBylayerColor))
 		(utf8demandLoad "copyTextStr.lsp" '(c:copyTextStr))
 		(utf8demandLoad "countBlock.lsp" '(c:countBlock))
+		(utf8demandLoad "countText.lsp" '(c:countText))
 		(utf8demandload "draworderCtrl.lsp" '((c:draworderAuto) (c:draworderLayer) (c:draworderLayer_args a)))
 		(utf8demandload "easyBlock.lsp" '(c:easyBlock))
 		(utf8demandload "easyExtend.lsp" '(c:easyExtend))
