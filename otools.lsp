@@ -42,6 +42,7 @@
 		(utf8demandLoad "stackCopy.lsp" '(c:stackcopy))
 		(utf8demandLoad "stepCopy.lsp" '(c:stepCopy))
 		(utf8demandLoad "stepMove.lsp" '(c:stepMove))
+		(utf8demandLoad "textEditAd.lsp" '(c:textEditAd))
 		(utf8demandLoad "verticalScale.lsp" '(c:verticalScale))
 	)
 )
