@@ -1,6 +1,6 @@
 dlg : dialog
 {
-	label = "stTextEdit";
+	label = "textEditAd";
 	initial_focus = "userValue";
 	: column
 	{

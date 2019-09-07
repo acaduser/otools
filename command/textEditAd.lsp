@@ -7,12 +7,9 @@
 		(sssetfirst)
 		(cond
 			((and ss (= (sslength  ss) 1))
-				
 				(setq ename (ssname ss 0))
-				;;(print "aaa")
 			)
 			(t
-				;;(sssetfirst)
 				(if
 					(and
 						(setq pick (entsel))
@@ -62,7 +59,6 @@
 		(if (new_dialog "dlg" (setq id (load_dialog tempDcl)))
 			(progn
 				(setq txtfname (strcat (getvar "tempprefix") "textEditAd.txt"))
-				;;(setq txtfname (findfile "stackTextEdit.txt"))
 				(if (null (findfile txtfname))
 					(progn
 						(setq dsc (open txtfname "w"))
@@ -70,7 +66,6 @@
 					)
 				)
 				(setq strlst (vl-remove-if '(lambda (a) (= a "")) (readall txtfname)))
-				;;(print strlst)
 				(setq names strlst)
 				(start_list "listbox")
 				(mapcar 'add_list  names)
