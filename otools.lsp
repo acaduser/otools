@@ -34,6 +34,7 @@
 		(utf8demandload "laystdctr.lsp" '(c:layPickNestOff))
 		(utf8demandload "linkScale.lsp" '(c:linkScale))
 		(utf8demandload "magnetText.lsp" '(c:magnetText))
+		(utf8demandload "menRec.lsp" '(c:menRec))
 		(utf8demandload "parallelogram.lsp" '(c:parallelogram))
 		(utf8demandload "putLengthText.lsp" '(c:putLengthText))
 		(utf8demandload "pviewportPan.lsp" '(c:pviewportPan))
