@@ -14,11 +14,13 @@
 (vl-catch-all-apply 'setvar '("layerdlgmode" 0))
 (vl-catch-all-apply 'setvar '("linesmoothing" 0))
 (vl-catch-all-apply 'setvar '("osoptions" 0))
+;(vl-catch-all-apply 'setvar '("paletteopaque" 1))
 (vl-catch-all-apply 'setvar '("pdfshx" 0))
 (setvar "pickauto" 1)
 (setvar "pickbox" 6)
 (setvar "pickstyle" 0)
 (setvar "polarang" (/ pi 12))
+;(vl-catch-all-apply 'setvar '("propertypreview" 0))
 (setvar "proxynotice" 0)
 (vl-catch-all-apply 'setvar '("rollovertips" 0))
 (vl-catch-all-apply 'setvar '("selectioncycling" 0))
@@ -51,6 +53,8 @@
 
 ;;setvar user
 (vl-catch-all-apply 'setvar '("hpdlgmode" 1)) 
+;(vl-catch-all-apply 'setvar '("hpquickpreview" 0)) 
+
 
 ;;setvar not-saved
 (setvar "bindtype" 1)
@@ -77,6 +81,8 @@
 (defun c:pub () (command "_.-purge" "_b" "*" "n"))
 (defun c:rr () (command "_.layerp"))
 (defun c:t () (command "_trim"))
+(defun c:xo () (command "_.xline" "o"))
+
 ;;wrapper command
 (defun c:myMove (/ *error* osmode per)
 	(defun *error*(s)
@@ -226,7 +232,7 @@
 (defun c:ddf () (c:draworderLayer_args "F"))
 
 ;;layertable
-(defun c:rcss () (c:chBylayerColor))
+(defun c:rcss () (c:chBylayerTColor))
 
 ;;pviewport
 (defun c:ppn () (c:pviewportPan))
