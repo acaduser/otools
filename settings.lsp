@@ -232,7 +232,7 @@
 (defun c:ddf () (c:draworderLayer_args "F"))
 
 ;;layertable
-(defun c:rcss () (c:chBylayerTColor))
+(defun c:rcss () (c:chBylayerColor))
 
 ;;pviewport
 (defun c:ppn () (c:pviewportPan))
