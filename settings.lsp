@@ -298,3 +298,6 @@
 )
 ;;restart
 (defun c:res () (load "acaddoc.lsp" nil))
+
+;;memo
+;(dictremove (namedobjdict) "AcSheetSetData")
